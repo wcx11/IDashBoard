@@ -47,7 +47,6 @@ def helloServer(request):
         except Exception, e:
             print e
             return
-
     else:
         return
     return HttpResponse("Hello world")

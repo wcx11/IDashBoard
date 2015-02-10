@@ -34,7 +34,10 @@ function postCallback(data) {
         var top = vm.stateInfo["Top"];
         var lines = top.split('\n');
         for(l in lines){
-            if(l < 10 && l != 1){
+            if(l < 10 && l != 0){
+                if(lines[l] == ""){
+                    break;
+                }
                 var values = lines[l].split(':');
                 for(var index = 2; index < values.length; index++){
                     values[1]+=":"

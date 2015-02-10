@@ -1,12 +1,12 @@
 __author__ = 'daiyue'
-import httplib, urllib, time
+import httplib, urllib, time, json
 from IDBCommand.command import CommandManager
 from IDBEntry.config import IDBClientConfig
 
 httpClient = None
 t = None
 headers = {"Content-type": "application/x-www-form-urlencoded"
-                    , "Accept": "text/plain"}
+                    , "Accept": "text/plain", "Host":"192.168.196.1"}
 class IDBNetwork:
     config = IDBClientConfig()
     def sendCommandResult(self, api, params):
@@ -15,7 +15,7 @@ class IDBNetwork:
         response = None
         try:
             stateHttpClient = httplib.HTTPConnection(serverHost, serverPort, timeout=30)
-            stateHttpClient.request("Post", api, params, headers)
+            stateHttpClient.request("POST", api, params, headers)
             response = stateHttpClient.getresponse()
         except Exception, e:
             print e

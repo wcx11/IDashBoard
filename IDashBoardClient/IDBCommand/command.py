@@ -10,6 +10,7 @@ class CommandManager:
         pf = platform.system()
         print pf
         dic = self.config.getCommandDictionary(pf)
+        lines = ""
         try:
             p = subprocess.Popen(dic[cmd], shell=True, stdout=subprocess.PIPE, stderr= subprocess.STDOUT)
             lines = ""
