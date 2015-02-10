@@ -29,7 +29,6 @@ function postCallback(data) {
                     '</tr>';
                 i ++;
             }
-
         }
         var top = vm.stateInfo["Top"];
         var lines = top.split('\n');

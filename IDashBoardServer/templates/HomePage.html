@@ -8,11 +8,23 @@
     <script src="js/bootstrap.min.js"></script>
     <script src="js/refresh.js"></script>
     <title>IDashBoard</title>
-
+    <style>
+        .bs-callout {
+            padding: 20px;
+            margin: 20px 0;
+            border: 1px solid #eee;
+            border-left-width: 5px;
+            border-radius: 3px;
+            background-color: seashell;
+        }
+        .bs-callout-danger {
+            border-left-color: #ce4844;
+        }
+    </style>
 </head>
 <body style="background-image: url('img/bg.png')">
 
-共有：<span id="vmNum">{{ ActiveVMs|length }}</span> 台虚拟机在线
+<!--共有：<span id="vmNum">{{ ActiveVMs|length }}</span> 台虚拟机在线-->
 <div class="container-fluid">
 
 <nav class="navbar navbar-default" role="navigation">
@@ -57,9 +69,7 @@
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">UserInfo <span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
-            <li><a href="#">个人信息</a></li>
-            <li><a href="#">操作记录</a></li>
-            <li><a href="#">Something else here</a></li>
+            <li><a href="#" data-toggle="modal" data-target="#userModal">个人信息</a></li>
             <li class="divider"></li>
             <li><a href="/logout/">退出登录</a></li>
           </ul>
@@ -69,7 +79,39 @@
   </div><!-- /.container-fluid -->
 </nav>
 
-<div class="alert alert-success" role="alert">共有{{ ActiveVMs|length }}台虚拟机在线</div>
+<div class="modal fade" id="userModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">个人信息</h4>
+      </div>
+      <div class="modal-body">
+         <div class="form-group">
+              <label for="username" style="font-size: 25px;">邮箱</label>
+              <input type="text" class="form-control" id="username" name="username"
+                 placeholder="邮箱">
+           </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div class="alert alert-success" role="alert">共有<span>{{ ActiveVMs|length }}</span>台虚拟机在线</div>
+    <div class="row mainvms">
+        {% for ActiveVM in ActiveVMs %}
+
+            <div class="col-md-offset-2 col-md-3 bs-callout-danger bs-callout">
+                <h4>{{ ActiveVM.IPAddress }}</h4>
+            </div>
+
+        {% endfor %}
+
+    </div>
     <div class="row-fluid">
         <div class="col-lg-offset-1 col-lg-8 vms">
         {% for ActiveVM in ActiveVMs %}
