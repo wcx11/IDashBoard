@@ -1,0 +1,4 @@
+/.idea
+/IDashBoardClient/.idea
+/IDashBoardServer/.idea
+*.pyc
