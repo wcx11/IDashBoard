@@ -19,11 +19,11 @@ def VMState(request):
         stateInfo = request.POST['stateInfo']
         vm[0].stateInfo = stateInfo
         vm[0].lastConnectTime = datetime.datetime.now()
+        info = eval(request.POST['stateInfo'])
+        vm[0].updateInfo(info)
         vm[0].save()
-        #b = eval(request.POST['stateInfo'])['HostName']
         #encode = json.dumps(eval(request.POST['stateInfo']))
         #print encode["HostName"]
-
     try:
         VirtualMachine.objects.filter()
     except:

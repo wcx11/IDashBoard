@@ -6,5 +6,55 @@ class VirtualMachine(models.Model):
     port = models.PositiveIntegerField(null=True)
     state = models.IntegerField(null=True)#if the virtual machine is online
     lastConnectTime = models.DateTimeField(auto_now=True, auto_now_add=False)#when the client connect the server for the last time
-    stateInfo = models.TextField()
+    stateInfo = models.TextField(null=True)
+
+    #from ifconfig command
+    inet4 = models.TextField(null=True)
+    bcast = models.TextField(null=True)
+    inet6 = models.TextField(null=True)
+    mask = models.TextField(null=True)
+    DNS = models.TextField(null=True)
+
+    #from top command
+    users = models.TextField(null=True)
+    loadAverage = models.TextField(null=True)
+    tasks = models.TextField(null=True)
+    percentCPU = models.TextField(null=True)
+    mem = models.TextField(null=True)
+    swap = models.TextField(null=True)
+
+    #others
+    hostname = models.TextField(null=True)
+    username = models.TextField(null=True)
+    cpuInfo = models.TextField(null=True)
+
+    def updateInfo(self, info):
+        #infolist = ["HostName", "UserName", "CPUInfo",\
+        #   "Tasks", "Memory", "percentCPU", "Swap",\
+        #   "inet4", "bcast", "mask", "DNS", "inet6"]
+        if "HostName" in info:
+            self.hostname = info["HostName"]
+        if "UserName" in info:
+            self.username = info["UserName"]
+        if "CPUInfo" in info:
+            self.cpuInfo = info["CPUInfo"]
+        if "Tasks" in info:
+            self.tasks = info["Tasks"]
+        if "Memory" in info:
+            self.mem = info["Memory"]
+        if "percentCPU" in info:
+            self.percentCPU = info["percentCPU"]
+        if "Swap" in info:
+            self.swap = info["Swap"]
+        if "inet4" in info:
+            self.inet4 = info["inet4"]
+        if "bcast" in info:
+            self.bcast = info["bcast"]
+        if "mask" in info:
+            self.mask = info["mask"]
+        if "DNS" in info:
+            self.DNS = info["DNS"]
+        if "inet6" in info:
+            self.inet6 = info["inet6"]
+
 

@@ -12,9 +12,9 @@ from django.contrib import auth
 def HomePage(request):
     if request.user.is_authenticated():
         user = request.user
-        ActiveVMs = getActiveVMs()
+        ActiveVMs = getAllActiveVMs()
         #c = template.Context({'ActiveVMs':list})
-        stateList = ['HostName', 'UserName', 'CPUInfo', 'Top']
+        stateList = ['HostName', 'UserName', 'CPUInfo']
         #page = HomePage()
         return render_to_response('HomePage.html', locals())
     else:
@@ -22,17 +22,45 @@ def HomePage(request):
 
 def RefreshHomePage(request):
     if request.user.is_authenticated():
-        ActiveVMs = getActiveVMs()
+        ActiveVMs = getAllActiveVMs()
+        response = {'ActiveVMs': ActiveVMs}
+        response['Access-Control-Allow-Origin'] = '*'
+        return HttpResponse(json.dumps(response))
+    else:
+        return render_to_response('index.html', locals())
+def RefreshSimplePage(request):
+    if request.user.is_authenticated():
+        ActiveVMs = getAllActiveVMsSimple()
         response = {'ActiveVMs': ActiveVMs}
         response['Access-Control-Allow-Origin'] = '*'
         return HttpResponse(json.dumps(response))
     else:
         return render_to_response('index.html', locals())
 
-def VMDetails(request):
-    return
+def VMDetails(request, ip):
+    vmDetail = {}
+    try:
+        vm = VirtualMachine.objects.filter(IPAddress=ip)
+        if len(vm) != 0:
+            vmDetail += {'IPAddress': vm[0].IPAddress, 'stateInfo': eval(vm[0].stateInfo)}
+        else:
+            vmDetail += {'IPAddress': [], 'stateInfo': []}
+    except Exception, e:
+        print e
+        return
+    return HttpResponse(json.dumps(vmDetail))
 
-def getActiveVMs():
+def getAllActiveVMsSimple():
+    t = datetime.datetime.now()
+    t -= datetime.timedelta(seconds=60)
+    vms = VirtualMachine.objects.filter(lastConnectTime__gte = t)
+    ActiveVMs = []
+    for vm in vms:
+        dic = {'IPAddress': vm.IPAddress, 'UserName': vm.username, 'HostName': vm.hostname, 'Memory': vm.mem}
+        ActiveVMs.append(dic)
+    return ActiveVMs
+
+def getAllActiveVMs():
     t = datetime.datetime.now()
     t -= datetime.timedelta(seconds=60)
     vms = VirtualMachine.objects.filter(lastConnectTime__gte = t)
