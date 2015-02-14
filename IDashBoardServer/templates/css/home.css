@@ -1,0 +1,24 @@
+.navbar {
+	border-radius: 0px;
+}
+
+#main-data-table tbody {
+	cursor: pointer;
+}
+
+#vm-count {
+	line-height: 30px;
+}
+
+#vm-count label {
+	font-weight: normal;
+	margin-left: 15px;
+}
+
+footer {
+	padding-top: 20px;
+	padding-bottom: 20px;
+	margin-top: 20px;
+	border-top: 1px solid #e5e5e5;
+	text-align: center;
+}

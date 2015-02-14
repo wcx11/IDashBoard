@@ -38,12 +38,14 @@
 	<!-- datatable plugin extension fixedHeader -->
 	<!-- <script src="/lib/datatables-fixedheader-2.1.2/dataTables.fixedHeader.min.js"></script> -->
 
+	<!-- ========================= custom css ========================= -->
+	<link rel="stylesheet" href="/css/home.css">
 	<!-- ========================= custom javascript ========================= -->
-	<script src="/js/script.js"></script>
+	<script src="/js/home.js"></script>
 </head>
 <body>
 	<!-- 导航条 -->
-	<nav class="navbar navbar-default" style="border-radius: 0px;">
+	<nav class="navbar navbar-inverse">
 		<div class="container">
 			<!-- 导航条左侧的文字即移动设备展开按钮 -->
 			<div class="navbar-header">
@@ -53,29 +55,34 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="#"><strong>iDashBoard</strong></a>
+				<a class="navbar-brand" href="javascript:void(0);"><strong>iDashBoard</strong></a>
 			</div>
 			<!-- 导航条主体 -->
 			<!-- 响应式 -->
 			<div class="collapse navbar-collapse" id="navbar-collapse-body">
 				<!-- 左侧按钮 -->
 				<ui class="nav navbar-nav" style="margin-left: 100px;">
-					<li class="active"><a href="#">Mainboard<span class="sr-only">(current)</span></a></li>
-					<li><a href="#">Statistics</a></li>
+					<li class="active"><a href="javascript:void(0);">Mainboard<span class="sr-only">(current)</span></a></li>
+					<li><a href="javascript:void(0);">Statistics</a></li>
 				</ui>
 				<!-- 右侧按钮 -->
 				<ul class="nav navbar-nav navbar-right">
 					<li class="dropdown">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+						<a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
 							<span class="glyphicon glyphicon-user" aria-hidden="true"></span>
 							UserName
 							<span class="caret"></span>
 						</a>
 						<ul class="dropdown-menu" role="menu">
-							<li><a href="#">Settings</a></li>
-							<li><a href="#">Settings</a></li>
+							<li><a href="javascript:void(0);">
+								<span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+								&nbsp;Settings
+							</a></li>
 							<li class="divider"></li>
-							<li><a href="#">Log out</a></li>
+							<li><a href="\logout\">
+								<span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>
+								&nbsp;Log out
+							</a></li>
 						</ul>
 					</li>
 				</ul>
@@ -86,6 +93,50 @@
 	<!-- 文档容器 -->
 	<div class="container">
 		<div class="row">
+			<!-- 页面刷新按钮组 -->
+			<div id="refresh-button-group" class="btn-group btn-group-sm">
+				<!-- 刷新按钮 -->
+				<button id="refresh-button" type="button" class="btn btn-success">
+					<span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
+				</button>
+				<!-- 自动刷新选项按钮 -->
+				<button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+					<span class="caret"></span>
+					<span class="sr-only">Toggle Dropdown</span>
+				</button>
+				<!-- 自动刷新选项菜单 -->
+				<ul id="refresh-option-menu" class="dropdown-menu" role="menu">
+					<li role="presentation" class="dropdown-header">Auto Refresh Option</li>
+					<!-- serRefreshOption(interval, index) -->
+					<!-- interval: seconds per refresh, index: dom index of menu item -->
+					<li><a href="javascript:setRefreshOption(0, 0);">
+						<span class="glyphicon glyphicon-check" aria-hidden="true"></span>
+						&nbsp;none
+					</a></li>
+					<li><a href="javascript:setRefreshOption(10, 1);">
+						<span class="glyphicon glyphicon-unchecked" aria-hidden="true"></span>
+						&nbsp;10 secs
+					</a></li>
+					<li><a href="javascript:setRefreshOption(30, 2);">
+						<span class="glyphicon glyphicon-unchecked" aria-hidden="true"></span>
+						&nbsp;30 secs
+					</a></li>
+					<li><a href="javascript:setRefreshOption(60, 3);">
+						<span class="glyphicon glyphicon-unchecked" aria-hidden="true"></span>
+						&nbsp;1 min
+					</a></li>
+					<li><a href="javascript:setRefreshOption(300, 4);">
+						<span class="glyphicon glyphicon-unchecked" aria-hidden="true"></span>
+						&nbsp;5 mins
+					</a></li>
+					<li><a href="javascript:setRefreshOption(600, 5);">
+						<span class="glyphicon glyphicon-unchecked" aria-hidden="true"></span>
+						&nbsp;10 mins
+					</a></li>
+				</ul>
+			</div>
+
+			<!-- Datatable元素 -->
 			<table id="main-data-table" class="display" cellspacing="0" width="100%">
 				<thead>
 					<tr>
@@ -100,5 +151,12 @@
 			</table>
 		</div>
 	</div>
+
+	<footer>
+		<div class="container">
+			<p><a href="http://tns.thss.tsinghua.edu.cn/">Institute of TNS, School of Software</a>, Tsinghua University &copy; 2015</p>
+			<p>Powered by <a href="http://v3.bootcss.com/">Bootstrap</a>, <a href="https://datatables.net/">DataTables</a></p>
+		</div>
+	</footer>
 </body>
 </html>
