@@ -95,4 +95,5 @@ TEMPLATE_DIRS = (
 
 CSS_DIR = './templates/css'
 JS_DIR = './templates/js'
-IMG_DIR= './templates/img'
+IMG_DIR = './templates/img'
+LIB_DIR = './templates/lib'

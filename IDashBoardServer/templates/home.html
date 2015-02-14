@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>iDashBoard</title>
+
+	<!-- ========================= external css ========================= -->
+	<!-- bootstrap css -->
+	<link rel="stylesheet" href="/lib/bootstrap-3.3.2/bootstrap.min.css">
+
+	<!-- datatable plugin basic css -->
+	<!-- <link rel="stylesheet" href="/lib/datatables-1.10.5/jquery.dataTables.min.css"> -->
+	<!-- datatable plugin bootstrap css, replace basic css -->
+	<link rel="stylesheet" href="/lib/datatables-bootstrap-f2c75b7247b/dataTables.bootstrap.css">
+
+	<!-- datatable plugin extension colReorder css -->
+	<link rel="stylesheet" href="/lib/datatables-colreorder-1.1.2/dataTables.colReorder.css">
+	<!-- datatable plugin extension responsive css -->
+	<link rel="stylesheet" href="/lib/datatables-responsive-1.0.4/dataTables.responsive.css">
+	<!-- datatable plugin extension fixedHeader css -->
+	<!-- <link rel="stylesheet" href="/lib/datatables-fixedheader-2.1.2/dataTables.fixedHeader.css"> -->
+
+	<!-- ========================= external javascript ========================= -->
+	<!-- jquery 1.11.2 -->
+	<script src="/lib/jquery-1.11.2/jquery.min.js"></script>
+	<!-- datatable plugin 1.10.5 -->
+	<script src="/lib/datatables-1.10.5/jquery.dataTables.min.js"></script>
+
+	<!-- bootstrap 3.3.2 -->
+	<script src="/lib/bootstrap-3.3.2/bootstrap.min.js"></script>
+	<!-- datatable plugin bootstrap -->
+	<script src="/lib/datatables-bootstrap-f2c75b7247b/dataTables.bootstrap.min.js"></script>
+
+	<!-- datatable plugin extension colReorder -->
+	<script src="/lib/datatables-colreorder-1.1.2/dataTables.colReorder.min.js"></script>
+	<!-- datatable plugin extension responsive -->
+	<script src="/lib/datatables-responsive-1.0.4/dataTables.responsive.js"></script>
+	<!-- datatable plugin extension fixedHeader -->
+	<!-- <script src="/lib/datatables-fixedheader-2.1.2/dataTables.fixedHeader.min.js"></script> -->
+
+	<!-- ========================= custom javascript ========================= -->
+	<script src="/js/script.js"></script>
+</head>
+<body>
+	<!-- 导航条 -->
+	<nav class="navbar navbar-default" style="border-radius: 0px;">
+		<div class="container">
+			<!-- 导航条左侧的文字即移动设备展开按钮 -->
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-body">
+					<span class="sr-only">Toggle Navgation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#"><strong>iDashBoard</strong></a>
+			</div>
+			<!-- 导航条主体 -->
+			<!-- 响应式 -->
+			<div class="collapse navbar-collapse" id="navbar-collapse-body">
+				<!-- 左侧按钮 -->
+				<ui class="nav navbar-nav" style="margin-left: 100px;">
+					<li class="active"><a href="#">Mainboard<span class="sr-only">(current)</span></a></li>
+					<li><a href="#">Statistics</a></li>
+				</ui>
+				<!-- 右侧按钮 -->
+				<ul class="nav navbar-nav navbar-right">
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+							<span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+							UserName
+							<span class="caret"></span>
+						</a>
+						<ul class="dropdown-menu" role="menu">
+							<li><a href="#">Settings</a></li>
+							<li><a href="#">Settings</a></li>
+							<li class="divider"></li>
+							<li><a href="#">Log out</a></li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+	<!-- 文档容器 -->
+	<div class="container">
+		<div class="row">
+			<table id="main-data-table" class="display" cellspacing="0" width="100%">
+				<thead>
+					<tr>
+						<th>IP Address</th>
+						<th>Operating System</th>
+						<th>Status</th>
+						<th>Memory</th>
+						<th>Last Online Time</th>
+						<th>Remark</th>
+					</tr>
+				</thead>
+			</table>
+		</div>
+	</div>
+</body>
+</html>

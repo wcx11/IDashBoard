@@ -16,9 +16,12 @@ def HomePage(request):
         #c = template.Context({'ActiveVMs':list})
         stateList = ['HostName', 'UserName', 'CPUInfo']
         #page = HomePage()
-        return render_to_response('HomePage.html', locals())
+        return render_to_response('home.html', locals())
     else:
         return render_to_response('index.html', locals())
+
+def home(request):
+    return render_to_response('home.html')
 
 def RefreshHomePage(request):
     if request.user.is_authenticated():
