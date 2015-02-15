@@ -93,69 +93,72 @@
 	<!-- 文档容器 -->
 	<div class="container">
 		<div class="row">
-			<!-- 页面刷新按钮组 -->
-			<div id="refresh-button-group" class="btn-group btn-group-sm">
-				<!-- 刷新按钮 -->
-				<button id="refresh-button" type="button" class="btn btn-success">
-					<span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
-				</button>
-				<!-- 自动刷新选项按钮 -->
-				<button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-					<span class="caret"></span>
-					<span class="sr-only">Toggle Dropdown</span>
-				</button>
-				<!-- 自动刷新选项菜单 -->
-				<ul id="refresh-option-menu" class="dropdown-menu" role="menu">
-					<li role="presentation" class="dropdown-header">Auto Refresh Option</li>
-					<!-- serRefreshOption(interval, index) -->
-					<!-- interval: seconds per refresh, index: dom index of menu item -->
-					<li><a href="javascript:setRefreshOption(0, 0);">
-						<span class="glyphicon glyphicon-check" aria-hidden="true"></span>
-						&nbsp;none
-					</a></li>
-					<li><a href="javascript:setRefreshOption(10, 1);">
-						<span class="glyphicon glyphicon-unchecked" aria-hidden="true"></span>
-						&nbsp;10 secs
-					</a></li>
-					<li><a href="javascript:setRefreshOption(30, 2);">
-						<span class="glyphicon glyphicon-unchecked" aria-hidden="true"></span>
-						&nbsp;30 secs
-					</a></li>
-					<li><a href="javascript:setRefreshOption(60, 3);">
-						<span class="glyphicon glyphicon-unchecked" aria-hidden="true"></span>
-						&nbsp;1 min
-					</a></li>
-					<li><a href="javascript:setRefreshOption(300, 4);">
-						<span class="glyphicon glyphicon-unchecked" aria-hidden="true"></span>
-						&nbsp;5 mins
-					</a></li>
-					<li><a href="javascript:setRefreshOption(600, 5);">
-						<span class="glyphicon glyphicon-unchecked" aria-hidden="true"></span>
-						&nbsp;10 mins
-					</a></li>
-				</ul>
-			</div>
+			<!-- <div class="col-md-10 col-md-offset-1"> -->
+			<div class="col-md-12">
+				<!-- 页面刷新按钮组 -->
+				<div id="refresh-button-group" class="btn-group btn-group-sm">
+					<!-- 刷新按钮 -->
+					<button id="refresh-button" type="button" class="btn btn-success">
+						<span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
+					</button>
+					<!-- 自动刷新选项按钮 -->
+					<button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+						<span class="caret"></span>
+						<span class="sr-only">Toggle Dropdown</span>
+					</button>
+					<!-- 自动刷新选项菜单 -->
+					<ul id="refresh-option-menu" class="dropdown-menu" role="menu">
+						<li role="presentation" class="dropdown-header">Auto Refresh Option</li>
+						<!-- serRefreshOption(interval, index) -->
+						<!-- interval: seconds per refresh, index: dom index of menu item -->
+						<li><a href="javascript:setRefreshOption(0, 0);">
+							<span class="glyphicon glyphicon-check" aria-hidden="true"></span>
+							&nbsp;none
+						</a></li>
+						<li><a href="javascript:setRefreshOption(10, 1);">
+							<span class="glyphicon glyphicon-unchecked" aria-hidden="true"></span>
+							&nbsp;10 secs
+						</a></li>
+						<li><a href="javascript:setRefreshOption(30, 2);">
+							<span class="glyphicon glyphicon-unchecked" aria-hidden="true"></span>
+							&nbsp;30 secs
+						</a></li>
+						<li><a href="javascript:setRefreshOption(60, 3);">
+							<span class="glyphicon glyphicon-unchecked" aria-hidden="true"></span>
+							&nbsp;1 min
+						</a></li>
+						<li><a href="javascript:setRefreshOption(300, 4);">
+							<span class="glyphicon glyphicon-unchecked" aria-hidden="true"></span>
+							&nbsp;5 mins
+						</a></li>
+						<li><a href="javascript:setRefreshOption(600, 5);">
+							<span class="glyphicon glyphicon-unchecked" aria-hidden="true"></span>
+							&nbsp;10 mins
+						</a></li>
+					</ul>
+				</div>
 
-			<!-- Datatable元素 -->
-			<table id="main-data-table" class="display" cellspacing="0" width="100%">
-				<thead>
-					<tr>
-						<th>IP Address</th>
-						<th>Operating System</th>
-						<th>Status</th>
-						<th>Memory</th>
-						<th>Last Online Time</th>
-						<th>Remark</th>
-					</tr>
-				</thead>
-			</table>
+				<!-- Datatable元素 -->
+				<table id="main-data-table" class="display" cellspacing="0" width="100%">
+					<thead>
+						<tr>
+							<th>IP Address</th>
+							<th>Operating System</th>
+							<th>Status</th>
+							<th>Memory</th>
+							<th>Last Online Time</th>
+							<th>Remark</th>
+						</tr>
+					</thead>
+				</table>
+			</div>
 		</div>
 	</div>
 
 	<footer>
 		<div class="container">
-			<p><a href="http://tns.thss.tsinghua.edu.cn/">Institute of TNS, School of Software</a>, Tsinghua University &copy; 2015</p>
-			<p>Powered by <a href="http://v3.bootcss.com/">Bootstrap</a>, <a href="https://datatables.net/">DataTables</a></p>
+			<p><a target="_blank" href="http://tns.thss.tsinghua.edu.cn/">Institute of TNS, School of Software</a>, Tsinghua University &copy; 2015</p>
+			<p>Powered by <a target="_blank" href="http://v3.bootcss.com/">Bootstrap</a>, <a target="_blank" href="https://datatables.net/">DataTables</a></p>
 		</div>
 	</footer>
 </body>

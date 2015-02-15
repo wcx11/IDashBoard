@@ -40,6 +40,9 @@ $(document).ready(function() {
 	$('#refresh-button').click(refreshData);
 });
 
+/**
+ * 设置自动刷新时间
+ */
 function setRefreshOption(interval, index) {
 	clearInterval(clockId);
 	if (interval > 0) {
@@ -51,6 +54,9 @@ function setRefreshOption(interval, index) {
 	$('#refresh-option-menu span').eq(index).removeClass('glyphicon-unchecked').addClass('glyphicon-check');
 }
 
+/**
+ * 刷新DataTable数据
+ */
 function refreshData(table) {
 	console.log('reload start');
 	$('#main-data-table').DataTable().ajax.reload(function() {
