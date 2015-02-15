@@ -1,0 +1,16 @@
+{
+	"topInfo": "top - 23:06:48 up  6:38,  2 users,  load average: 0.08, 0.03, 0.08\nTasks: 207 total,   1 running, 206 sleeping,   0 stopped,   0 zombie\n%Cpu(s):  1.0 us,  2.3 sy,  0.0 ni, 96.5 id,  0.2 wa,  0.0 hi,  0.0 si,  0.0 st\nKiB Mem:   2063864 total,  1400436 used,   663428 free,    32068 buffers\nKiB Swap:  1045500 total,     1168 used,  1044332 free.   914300 cached Mem",
+	"uName": "Linux ubuntu 3.13.0-24-generic",
+	"hostName": "ubuntu",
+	"cpuInfo": "4 Intel(R) Core(TM) i7-3610QM CPU @ 2.30GHz",
+	"userName": "syb",
+	"tasks": "212 1 211 0 0",
+	"memory": "2063864 1538824 525040 35696",
+	"cpuLoad": "1.0 2.3 0.0 96.5 0.2 0.0 0.0",
+	"swap": "1045500 1168 1044332 955160",
+	"ipv4": "192.168.227.128",
+	"mask": "255.255.255.0",
+	"broadcast": "192.168.227.255",
+	"ipv6": "fe80::20c:29ff:fef7:976/64",
+	"dns": "127.0.1.1"
+}

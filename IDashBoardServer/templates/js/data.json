@@ -1,15 +1,8 @@
 {
 	"data": [
 		{
-			"ip": "166.111.80.1",
-			"os": "Ubuntu 14.04",
-			"status": "Online",
-			"mem": 256,
-			"time": "2015/01/24 20:02:56",
-			"remark": "Place: East Main Building, User: SYB"
-		},
-		{
-			"ip": "166.111.80.106",
+			"id": 1,
+			"ip": "166.111.80.4",
 			"os": "Ubuntu Kylin",
 			"status": "Offline",
 			"mem": 512,
@@ -17,108 +10,130 @@
 			"remark": "Place: 6 Teaching Building, User: HEHE"
 		},
 		{
-			"ip": "166.111.80.18",
+			"id": 2,
+			"ip": "166.111.80.2",
 			"os": "Windows Server 2008",
 			"status": "Online",
 			"mem": 256,
 			"time": "2015/01/29 22:34:26",
 			"remark": "Server: Unknown, User: Unknown"
 		},
-				{
-			"ip": "166.111.80.106",
+		{
+			"id": 3,
+			"ip": "166.111.80.7",
 			"os": "Ubuntu Kylin",
 			"status": "Offline",
 			"mem": 512,
 			"time": "2015/02/05 08:02:00",
 			"remark": "Place: 6 Teaching Building, User: HEHE"
 		},
-				{
-			"ip": "166.111.80.106",
+		{
+			"id": 4,
+			"ip": "166.111.80.5",
 			"os": "Ubuntu Kylin",
 			"status": "Offline",
 			"mem": 512,
 			"time": "2015/02/05 08:02:00",
 			"remark": "Place: 6 Teaching Building, User: HEHE"
 		},
-				{
-			"ip": "166.111.80.106",
+		{
+			"id": 5,
+			"ip": "166.111.80.11",
 			"os": "Ubuntu Kylin",
 			"status": "Offline",
 			"mem": 512,
 			"time": "2015/02/05 08:02:00",
 			"remark": "Place: 6 Teaching Building, User: HEHE"
 		},
-				{
-			"ip": "166.111.80.106",
+		{
+			"id": 6,
+			"ip": "166.111.80.9",
 			"os": "Ubuntu Kylin",
 			"status": "Offline",
 			"mem": 512,
 			"time": "2015/02/05 08:02:00",
 			"remark": "Place: 6 Teaching Building, User: HEHE"
 		},
-				{
-			"ip": "166.111.80.106",
+		{
+			"id": 7,
+			"ip": "166.111.80.8",
 			"os": "Ubuntu Kylin",
 			"status": "Offline",
 			"mem": 512,
 			"time": "2015/02/05 08:02:00",
 			"remark": "Place: 6 Teaching Building, User: HEHE"
 		},
-				{
-			"ip": "166.111.80.106",
+		{
+			"id": 8,
+			"ip": "166.111.80.14",
 			"os": "Ubuntu Kylin",
 			"status": "Offline",
 			"mem": 512,
 			"time": "2015/02/05 08:02:00",
 			"remark": "Place: 6 Teaching Building, User: HEHE"
 		},
-				{
-			"ip": "166.111.80.106",
+		{
+			"id": 9,
+			"ip": "166.111.80.15",
 			"os": "Ubuntu Kylin",
 			"status": "Offline",
 			"mem": 512,
 			"time": "2015/02/05 08:02:00",
 			"remark": "Place: 6 Teaching Building, User: HEHE"
 		},
-				{
-			"ip": "166.111.80.106",
+		{
+			"id": 10,
+			"ip": "166.111.80.16",
 			"os": "Ubuntu Kylin",
 			"status": "Offline",
 			"mem": 512,
 			"time": "2015/02/05 08:02:00",
 			"remark": "Place: 6 Teaching Building, User: HEHE"
 		},
-				{
-			"ip": "166.111.80.106",
+		{
+			"id": 11,
+			"ip": "166.111.80.18",
 			"os": "Ubuntu Kylin",
 			"status": "Offline",
 			"mem": 512,
 			"time": "2015/02/05 08:02:00",
 			"remark": "Place: 6 Teaching Building, User: HEHE"
 		},
-				{
-			"ip": "166.111.80.106",
+		{
+			"id": 12,
+			"ip": "166.111.80.30",
 			"os": "Ubuntu Kylin",
 			"status": "Offline",
 			"mem": 512,
 			"time": "2015/02/05 08:02:00",
 			"remark": "Place: 6 Teaching Building, User: HEHE"
 		},
-				{
-			"ip": "166.111.80.106",
+		{
+			"id": 13,
+			"ip": "166.111.80.29",
 			"os": "Ubuntu Kylin",
 			"status": "Offline",
 			"mem": 512,
 			"time": "2015/02/05 08:02:00",
 			"remark": "Place: 6 Teaching Building, User: HEHE"
 		},
-				{
-			"ip": "166.111.80.106",
+		{
+			"id": 14,
+			"ip": "166.111.80.28",
 			"os": "Ubuntu Kylin",
 			"status": "Offline",
 			"mem": 512,
 			"time": "2015/02/05 08:02:00",
 			"remark": "Place: 6 Teaching Building, User: HEHE"
+		},
+		{
+			"id": 15,
+			"ip": "166.111.80.1",
+			"os": "Ubuntu 14.04",
+			"status": "Online",
+			"mem": 256,
+			"time": "2015/01/24 20:02:56",
+			"remark": "Place: East Main Building, User: SYB"
 		}
 	]
 }

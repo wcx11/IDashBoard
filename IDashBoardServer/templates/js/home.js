@@ -22,6 +22,9 @@ $(document).ready(function() {
 			$('#vm-count').html('<label><strong> ' + this.api().data().length + ' </strong> virtual machines online.</label>');
 			// 添加刷新按钮组
 			$('#vm-count').prepend($('#refresh-button-group'));
+		},
+		createdRow: function(row, data) {
+			$(row).attr('data-id', data.id);
 		}
 	});
 
@@ -33,7 +36,8 @@ $(document).ready(function() {
 
 	// 单击单元格跳转到详细信息
 	$('#main-data-table tbody').on('click', 'tr', function() {
-		console.log($('td', this).eq(0).text());
+		console.log($(this).attr('data-id'));
+		$(location).attr('href', '/detail/' + $(this).attr('data-id') + '/');
 	});
 
 	// 刷新表格数据按钮
@@ -57,7 +61,7 @@ function setRefreshOption(interval, index) {
 /**
  * 刷新DataTable数据
  */
-function refreshData(table) {
+function refreshData() {
 	console.log('reload start');
 	$('#main-data-table').DataTable().ajax.reload(function() {
 		console.log('reload complete');

@@ -5,9 +5,8 @@ import datetime, time, json
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib import auth
 
-
-
 # Create your views here.
+
 
 def HomePage(request):
     if request.user.is_authenticated():
@@ -20,8 +19,24 @@ def HomePage(request):
     else:
         return render_to_response('index.html', locals())
 
+
 def home(request):
     return render_to_response('home.html')
+
+
+def detail(request):
+    if request.user.is_authenticated():
+        return render_to_response('detail.html')
+    else:
+        return render_to_response('index.html')
+
+
+def get_detail(request, vm_id):
+    if request.user.is_authenticated():
+        response = {'data': vm_id, 'Access-Control-Allow-Origin': '*'}
+        return HttpResponse(json.dumps(response))
+    return render_to_response('index.html', locals())
+
 
 def RefreshHomePage(request):
     if request.user.is_authenticated():
@@ -31,6 +46,8 @@ def RefreshHomePage(request):
         return HttpResponse(json.dumps(response))
     else:
         return render_to_response('index.html', locals())
+
+
 def RefreshSimplePage(request):
     if request.user.is_authenticated():
         ActiveVMs = getAllActiveVMsSimple()
@@ -39,6 +56,7 @@ def RefreshSimplePage(request):
         return HttpResponse(json.dumps(response))
     else:
         return render_to_response('index.html', locals())
+
 
 def VMDetails(request, ip):
     vmDetail = {}
@@ -53,6 +71,7 @@ def VMDetails(request, ip):
         return
     return HttpResponse(json.dumps(vmDetail))
 
+
 def getAllActiveVMsSimple():
     t = datetime.datetime.now()
     t -= datetime.timedelta(seconds=60)
@@ -63,6 +82,7 @@ def getAllActiveVMsSimple():
         ActiveVMs.append(dic)
     return ActiveVMs
 
+
 def getAllActiveVMs():
     t = datetime.datetime.now()
     t -= datetime.timedelta(seconds=60)
@@ -72,6 +92,7 @@ def getAllActiveVMs():
         dic = {'IPAddress': vm.IPAddress, 'stateInfo': eval(vm.stateInfo)}
         ActiveVMs.append(dic)
     return ActiveVMs
+
 
 def login(request):
     errors = []
@@ -90,6 +111,7 @@ def login(request):
         else:
             return HttpResponseRedirect('/')
     return HttpResponseRedirect('/')
+
 
 def logout(request):
     auth.logout(request)

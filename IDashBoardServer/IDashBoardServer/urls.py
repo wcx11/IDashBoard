@@ -1,24 +1,20 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
-from DashBoardView.views import HomePage, RefreshHomePage, login, logout, home
-from VirtualMachines.views import VMState, helloServer
 from settings import CSS_DIR, JS_DIR, IMG_DIR, LIB_DIR
 
 urlpatterns = patterns('',
-    # Examples:
-    # url(r'^$', 'IDashBoardServer.views.home', name='home'),
-    # url(r'^blog/', include('blog.urls')),
-
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^$', HomePage),
-    url(r'^home/$', home),
-    url(r'^refreshHomePage/$', RefreshHomePage),
-    url(r'^saveVMState/$', VMState),
-    url(r'^helloServer/$', helloServer),
-    url(r'^login/$', login),
-    url(r'^logout/$', logout),
-    url(r'^css/(?P<path>.*)','django.views.static.serve',{'document_root': CSS_DIR}),
-    url(r'^js/(?P<path>.*)','django.views.static.serve',{'document_root': JS_DIR}),
-    url(r'^img/(?P<path>.*)','django.views.static.serve',{'document_root': IMG_DIR}),
-    url(r'^lib/(?P<path>.*)','django.views.static.serve',{'document_root': LIB_DIR}),
+    url(r'^$', 'DashBoardView.views.HomePage'),
+    url(r'^home/$', 'DashBoardView.views.home'),
+    url(r'^detail/\d+/$', 'DashBoardView.views.detail'),
+    url(r'get-detail/(?P<vm_id>\d+)/$', 'DashBoardView.views.get_detail'),
+    url(r'^refreshHomePage/$', 'DashBoardView.views.RefreshHomePage'),
+    url(r'^saveVMState/$', 'VirtualMachines.views.VMState'),
+    url(r'^helloServer/$', 'VirtualMachines.views.helloServer'),
+    url(r'^login/$', 'DashBoardView.views.login'),
+    url(r'^logout/$', 'DashBoardView.views.logout'),
+    url(r'^css/(?P<path>.*)', 'django.views.static.serve', {'document_root': CSS_DIR}),
+    url(r'^js/(?P<path>.*)', 'django.views.static.serve', {'document_root': JS_DIR}),
+    url(r'^img/(?P<path>.*)', 'django.views.static.serve', {'document_root': IMG_DIR}),
+    url(r'^lib/(?P<path>.*)', 'django.views.static.serve', {'document_root': LIB_DIR}),
 )
