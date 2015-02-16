@@ -31,6 +31,13 @@ def detail(request):
         return render_to_response('index.html')
 
 
+def settings(request):
+    if request.user.is_authenticated():
+        return render_to_response('settings.html')
+    else:
+        return render_to_response('index.html')
+
+
 def get_detail(request, vm_id):
     if request.user.is_authenticated():
         response = {'data': vm_id, 'Access-Control-Allow-Origin': '*'}

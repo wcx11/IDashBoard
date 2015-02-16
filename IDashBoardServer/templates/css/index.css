@@ -1,0 +1,82 @@
+.bgimage {
+	background-image: -webkit-radial-gradient(circle, #3b3a53, #1b151f);
+	background-image: radial-gradient(circle, #3b3a53, #1b151f);
+}
+
+.center-box {
+	width: 640px;
+	height: 400px;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	margin: auto;
+}
+
+.wrapper {
+	position: absolute;
+	height: 100%;
+	width: 100%;
+}
+
+#image-box {
+	padding-left: 0;
+	margin-top: 10px;
+}
+
+#image-box img {
+	max-width: 100%;
+}
+
+#login-box {
+	border-left: 1px solid #e2e2e2;
+}
+
+#slogan {
+	margin-bottom: 15px;
+}
+
+#logo {
+	border-radius: 0;
+	margin-right: 10px;
+	color: white;
+	padding: 5px;
+	width: 220px;
+	font-size: 40px;
+	line-height: 50px;
+	background-color: rgb(168, 35, 0);
+}
+
+#title {
+	color: white;
+	padding: 5px;
+}
+
+#maintitle {
+	font-size: 25px;
+	line-height: 30px;
+}
+
+#subtitle {
+	font-size: 15px;
+	line-height: 20px;
+}
+
+#well-box {
+	border: 1px solid #e3e3e3;
+	border-radius: 3px;
+	padding: 24px;
+	position: absolute;
+	background-color: white;
+	box-shadow: insert 0 1px 1px rgba(0, 0, 0, .05);
+}
+
+label.error {
+	float: left;
+	font-size: 10px;
+	line-height: 12px;
+	margin-bottom: 0px;
+	font-weight: inherit;
+	color: red;
+}
