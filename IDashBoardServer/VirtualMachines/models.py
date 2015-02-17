@@ -27,6 +27,7 @@ class VirtualMachine(models.Model):
     hostname = models.TextField(null=True)
     username = models.TextField(null=True)
     cpuInfo = models.TextField(null=True)
+    osInfo = models.TextField(null=True)
 
     def updateInfo(self, info):
         #infolist = ["HostName", "UserName", "CPUInfo",\
@@ -56,5 +57,5 @@ class VirtualMachine(models.Model):
             self.DNS = info["DNS"]
         if "inet6" in info:
             self.inet6 = info["inet6"]
-
-
+        if "os" in info:
+            self.osInfo = info["os"]

@@ -3,10 +3,11 @@ from django import template
 from VirtualMachines.models import VirtualMachine
 import datetime, time, json
 from django.http import HttpResponse, HttpResponseRedirect
+from DashBoardUser.models import DashBoardUser
 from django.contrib import auth
+from django.contrib.auth.models import User
 
 # Create your views here.
-
 
 def HomePage(request):
     if request.user.is_authenticated():
@@ -21,21 +22,39 @@ def HomePage(request):
 
 
 def home(request):
-    return render_to_response('home.html')
+    if request.user.is_authenticated():
+        return render_to_response('home.html',locals())
+    else:
+        return render_to_response('index.html', locals())
 
 
 def detail(request):
     if request.user.is_authenticated():
-        return render_to_response('detail.html')
+        return render_to_response('detail.html', locals())
     else:
         return render_to_response('index.html')
+
 
 
 def settings(request):
     if request.user.is_authenticated():
-        return render_to_response('settings.html')
-    else:
-        return render_to_response('index.html')
+        u = User.objects.filter(id=request.user.id)
+        if len(u) != 0:
+            try:
+                profile = u[0].dashboarduser
+            except:
+                profile = DashBoardUser(user=u[0])
+                profile.save()
+
+            username = u[0].username
+            email = u[0].email
+            if profile.phone:
+                phone = profile.phone
+            if profile.department:
+                department = profile.department
+            return render_to_response('settings.html', locals())
+
+    return render_to_response('index.html')
 
 
 def get_detail(request, vm_id):
@@ -46,7 +65,7 @@ def get_detail(request, vm_id):
             vm = VirtualMachine.objects.filter(id = vm_id)
             if len(vm) != 0:
                 vmDetail = {'data': vm_id, 'Access-Control-Allow-Origin': '*'}
-                vmDetail ['uName']=vm[0].username
+                vmDetail ['uName']=vm[0].osInfo
                 vmDetail ['cpuInfo']= vm[0].cpuInfo
                 vmDetail ['memory']= vm[0].mem
                 vmDetail ['swap']=vm[0].swap
@@ -107,7 +126,7 @@ def getAllActiveVMsSimple():
     vms = VirtualMachine.objects.filter(lastConnectTime__gte = t)
     ActiveVMs = []
     for vm in vms:
-        dic = {'ip': vm.IPAddress,'os':vm.cpuInfo, 'UserName': vm.username, 'HostName': vm.hostname, 'Memory': vm.mem, 'remark':"null", 'id':vm.id}
+        dic = {'ip': vm.IPAddress,'os':vm.osInfo, 'UserName': vm.username, 'HostName': vm.hostname, 'Memory': vm.mem.split()[0], 'remark':"null", 'id':vm.id}
         ActiveVMs.append(dic)
     return ActiveVMs
 

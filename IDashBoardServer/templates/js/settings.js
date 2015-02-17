@@ -18,7 +18,7 @@ $(document).ready(function () {
 			},
 			confirmpassword: {
 				required: true,
-				equalTo: "#password"
+				equalTo: "#new-password"
 			}
 		}
 	});

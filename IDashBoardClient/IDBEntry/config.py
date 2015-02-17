@@ -3,7 +3,7 @@ __author__ = 'daiyue'
 class IDBClientConfig:
     autoCommands = ["HostName", "UserName", "CPUInfo",\
                     "Tasks", "Memory", "percentCPU", "Swap",\
-                    "inet4", "bcast", "mask", "DNS", "inet6"]
+                    "inet4", "bcast", "mask", "DNS", "inet6", "os"]
     commandMacDictionary = {'Top': "Top -l 1 -n 10",\
                             'UName': "uname -a",\
                             'HostName': "hostname",\
@@ -22,7 +22,8 @@ class IDBClientConfig:
                               'bcast':'ifconfig -a | grep -i  ^eth -A 3 | grep -i -o "Bcast:[0-9]\{1,3\}.[0-9]\{1,3\}.[0-9]\{1,3\}.[0-9]\{1,3\}" | awk -F ":" \'{print $2}\'',\
                               'mask':'ifconfig -a | grep -i  ^eth -A 3 | grep -i -o "Mask:[0-9]\{1,3\}.[0-9]\{1,3\}.[0-9]\{1,3\}.[0-9]\{1,3\}" | awk -F ":" \'{print $2}\'',\
                               'inet6':'ifconfig -a | grep -i  ^eth -A 3 | grep -i "inet6 addr:" | awk \'{print $3}\'',\
-                              "DNS":'cat /etc/resolv.conf | grep nameserver | awk \'{print $2}\''}
+                              "DNS":'cat /etc/resolv.conf | grep nameserver | awk \'{print $2}\'',\
+                              "os":'cat /etc/issue'}
     commandWindowsDictionary = {}
     port = 6000
 
@@ -36,11 +37,11 @@ class IDBClientConfig:
 
     @staticmethod
     def getServerHost():
-        return "192.168.196.1"
+        return "192.168.1.102"
 
 
     def getServerPort(self):
-        return 9000
+        return 8000
 
     def getSocketPort(self):
         return self.port

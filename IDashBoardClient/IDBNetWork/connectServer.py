@@ -26,14 +26,14 @@ class IDBNetwork:
 
     def connectServer(self):
         while(True):
-            params = urllib.urlencode({'IPAddress': '127.0.0.1', 'Port': self.config.getSocketPort()})
+            params = urllib.urlencode({'IPAddress': '192.168.233.129', 'Port': self.config.getSocketPort()})
             response = self.sendCommandResult(api = "/helloServer/", params = params)
             if response and response.status == 200:
                 #execute command and send to server
                 while(True):
                     cm = CommandManager()
                     result = cm.executeAutoCMD()
-                    params = urllib.urlencode({"stateInfo": result, "IPAddress": '127.0.0.1'})
+                    params = urllib.urlencode({"stateInfo": result, "IPAddress": '192.168.233.129'})
                     self.sendCommandResult(api = "/saveVMState/", params = params)
                     time.sleep(3)
             else:
