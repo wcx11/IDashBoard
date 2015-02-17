@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+	<title>DashBoard Settings</title>
+
+	<!-- ========================= external css ========================= -->
+	<!-- bootstrap css -->
+	<link rel="stylesheet" href="/lib/bootstrap-3.3.2/bootstrap.min.css">
+
+	<!-- ========================= external javascript ========================= -->
+	<!-- jquery 1.11.2 -->
+	<script src="/lib/jquery-1.11.2/jquery.min.js"></script>
+	<!-- bootstrap 3.3.2 -->
+	<script src="/lib/bootstrap-3.3.2/bootstrap.min.js"></script>
+	<!-- jquery validation 1.13.1 -->
+	<script src="/lib/jquery-validation-1.13.1/jquery.validate.min.js"></script>
+
+	<!-- ========================= custom css ========================= -->
+	<link rel="stylesheet" href="/css/settings.css">
+	<!-- ========================= custom javascript ========================= -->
+	<script src="/js/settings.js"></script>
+</head>
+<body>
+	<!-- 导航条 -->
+	<nav class="navbar navbar-inverse">
+		<div class="container">
+			<!-- 导航条左侧的文字及移动设备展开按钮 -->
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-body">
+					<span class="sr-only">Toggle Navgation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="javascript:void(0);"><strong>iDashBoard</strong></a>
+			</div>
+			<!-- 导航条主体 -->
+			<!-- 响应式 -->
+			<div class="collapse navbar-collapse" id="navbar-collapse-body">
+				<!-- 左侧按钮 -->
+				<ui class="nav navbar-nav" style="margin-left: 100px;">
+					<li><a href="/home/">Mainboard<span class="sr-only">(current)</span></a></li>
+					<li><a href="javascript:void(0);">Statistics</a></li>
+				</ui>
+				<!-- 右侧按钮 -->
+				<ul class="nav navbar-nav navbar-right">
+					<li class="dropdown">
+						<a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+							<span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+							UserName
+							<span class="caret"></span>
+						</a>
+						<ul class="dropdown-menu" role="menu">
+							<li><a href="/settings/">
+								<span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+								&nbsp;Settings
+							</a></li>
+							<li class="divider"></li>
+							<li><a href="/logout/">
+								<span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>
+								&nbsp;Log out
+							</a></li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+	<!-- 文档容器 -->
+	<div class="container">
+		<div class="row">
+			<!-- 左侧表单 -->
+			<div class="col-sm-5 col-sm-offset-1">
+				<div class="row">
+					<div class="form-group col-sm-8 col-sm-offset-4"><h4>User Infomation</h4></div>
+				</div>
+				<div class="row">
+					<form id="user-info-form" class="form-horizontal">
+						<div class="form-group">
+							<label class="col-sm-4 control-label">User Name</label>
+							<div class="col-sm-8">
+								<input id="user-name" name="username" type="text" class="form-control" placeholder="User Name">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-4 control-label">Email Address</label>
+							<div class="col-sm-8">
+								<input id="email" name="email" type="email" class="form-control" placeholder="Email Address">
+							</div>
+						</div>
+						<button type="submit" class="col-sm-2 btn btn-primary pull-right">Save</button>
+					</form>
+				</div>
+				<hr>
+				<div class="row">
+					<div class="form-group col-sm-8 col-sm-offset-4"><h4>Change Password</h4></div>
+				</div>
+				<div class="row">
+					<form id="password-form" class="form-horizontal">
+						<div class="form-group">
+							<label class="col-sm-4 control-label">Password</label>
+							<div class="col-sm-8">
+								<input id="password" name="password" type="password" class="form-control" placeholder="Your Password">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-4 control-label">New Password</label>
+							<div class="col-sm-8">
+								<input id="new-password" name="newpassword" type="password" class="form-control" placeholder="New Password">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-4 control-label">Confirm Password</label>
+							<div class="col-sm-8">
+								<input id="confirm-password" name="confirmpassword" type="password" class="form-control" placeholder="Confirm Password">
+							</div>
+						</div>
+						<button type="submit" class="col-sm-2 btn btn-primary pull-right">Submit</button>
+					</form>
+				</div>
+			</div>
+			<!-- 右侧图片 -->
+			<div class="col-sm-5">
+				<img class="page-image" src="/img/cloud.png">
+			</div>
+		</div>
+	</div>
+
+	<!-- 页脚 -->
+	<footer>
+		<div class="container">
+			<p><a target="_blank" href="http://tns.thss.tsinghua.edu.cn/">Institute of TNS, School of Software</a>, Tsinghua University &copy; 2015</p>
+			<p>Powered by <a target="_blank" href="http://v3.bootcss.com/">Bootstrap</a>, <a target="_blank" href="https://datatables.net/">DataTables</a></p>
+		</div>
+	</footer>
+</body>
+</html>

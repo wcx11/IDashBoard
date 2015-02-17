@@ -461,6 +461,10 @@ Responsive.prototype = {
 				row.child( info, 'child' ).show();
 				$( row.node() ).addClass( 'parent' );
 			}
+
+			// modification to fix a bug when the table cell has an click event
+			// that shouldn't be triggered by clicking this button
+			e.stopPropagation();
 		} );
 	},
 
