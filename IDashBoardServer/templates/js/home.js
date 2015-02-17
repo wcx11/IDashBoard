@@ -7,13 +7,13 @@ $(document).ready(function() {
 	$('#main-data-table').DataTable({
 		responsive: true,
 		dom: 'R<"row"<"#vm-count.col-sm-6"><"col-sm-6"f>>rt<"row"<"col-sm-6"l><"col-sm-6"p>>',
-		ajax: '/js/data.json',
+		ajax: '/refreshSimplePage/',
 			columns: [
 			{'data': 'ip'},
 			{'data': 'os'},
-			{'data': 'status'},
-			{'data': 'mem'},
-			{'data': 'time'},
+			{'data': 'HostName'},
+			{'data': 'UserName'},
+			{'data': 'Memory'},
 			{'data': 'remark'}
 		],
 		initComplete: function() {

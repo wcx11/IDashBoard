@@ -33,8 +33,30 @@ def detail(request):
 
 def get_detail(request, vm_id):
     if request.user.is_authenticated():
-        response = {'data': vm_id, 'Access-Control-Allow-Origin': '*'}
-        return HttpResponse(json.dumps(response))
+        vmDetail = {}
+        #vm_id = 1
+        try:
+            vm = VirtualMachine.objects.filter(id = vm_id)
+            if len(vm) != 0:
+                vmDetail = {'data': vm_id, 'Access-Control-Allow-Origin': '*'}
+                vmDetail ['uName']=vm[0].username
+                vmDetail ['cpuInfo']= vm[0].cpuInfo
+                vmDetail ['memory']= vm[0].mem
+                vmDetail ['swap']=vm[0].swap
+                vmDetail ['cpuLoad']= vm[0].percentCPU
+                vmDetail ['tasks']=vm[0].tasks
+                vmDetail ['userName']= vm[0].username
+                vmDetail ['ipv4']=vm[0].inet4
+                vmDetail ['ipv6']=vm[0].inet6
+                vmDetail ['broadcast']=vm[0].bcast
+                vmDetail ['mask']=vm[0].mask
+                vmDetail ['dns']=vm[0].DNS
+            else:
+                vmDetail = {'IPAddress': [], 'stateInfo': []}
+        except Exception, e:
+            print e
+            return
+        return HttpResponse(json.dumps(vmDetail))
     return render_to_response('index.html', locals())
 
 
@@ -51,7 +73,7 @@ def RefreshHomePage(request):
 def RefreshSimplePage(request):
     if request.user.is_authenticated():
         ActiveVMs = getAllActiveVMsSimple()
-        response = {'ActiveVMs': ActiveVMs}
+        response = {'data': ActiveVMs}
         response['Access-Control-Allow-Origin'] = '*'
         return HttpResponse(json.dumps(response))
     else:
@@ -63,9 +85,9 @@ def VMDetails(request, ip):
     try:
         vm = VirtualMachine.objects.filter(IPAddress=ip)
         if len(vm) != 0:
-            vmDetail += {'IPAddress': vm[0].IPAddress, 'stateInfo': eval(vm[0].stateInfo)}
+            vmDetail = {'IPAddress': vm[0].IPAddress, 'stateInfo': eval(vm[0].stateInfo)}
         else:
-            vmDetail += {'IPAddress': [], 'stateInfo': []}
+            vmDetail = {'IPAddress': [], 'stateInfo': []}
     except Exception, e:
         print e
         return
@@ -78,7 +100,7 @@ def getAllActiveVMsSimple():
     vms = VirtualMachine.objects.filter(lastConnectTime__gte = t)
     ActiveVMs = []
     for vm in vms:
-        dic = {'IPAddress': vm.IPAddress, 'UserName': vm.username, 'HostName': vm.hostname, 'Memory': vm.mem}
+        dic = {'ip': vm.IPAddress,'os':vm.cpuInfo, 'UserName': vm.username, 'HostName': vm.hostname, 'Memory': vm.mem, 'remark':"null", 'id':vm.id}
         ActiveVMs.append(dic)
     return ActiveVMs
 

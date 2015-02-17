@@ -30,8 +30,8 @@ function setRefreshOption(interval, index) {
 function refreshData() {
 	console.log('reload start');
 
-	// var url = $(location).attr('href').replace(/\/detail\//, '/get-detail/');
-	var url = '/js/detail.json';
+	var url = $(location).attr('href').replace(/\/detail\//, '/get-detail/');
+	//var url = '/js/detail.json';
 
 	$.post(url, function(json) {
 		// 在这里更新表格数据
