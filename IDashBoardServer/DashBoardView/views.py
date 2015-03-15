@@ -131,7 +131,7 @@ def getAllActiveVMsSimple():
             'os': vm.osInfo,
             'UserName': vm.username,
             'HostName': vm.hostname,
-            'Memory': str(int(float(vm.mem.split()[1]) / float(vm.mem.split()[0]) * 100 + 0.5)),
+            'Memory': str(int(float(vm.mem.split()[1]) / float(vm.mem.split()[0]) * 100 + 0.5)) + '%',
             'remark': "none",
             'id': vm.id
         }
