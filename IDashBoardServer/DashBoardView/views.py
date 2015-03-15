@@ -1,7 +1,7 @@
 from django.shortcuts import render, render_to_response
 from django import template
 from VirtualMachines.models import VirtualMachine
-import datetime, time, json
+import datetime, time, json, string
 from django.http import HttpResponse, HttpResponseRedirect
 from DashBoardUser.models import DashBoardUser
 from django.contrib import auth
@@ -62,21 +62,21 @@ def get_detail(request, vm_id):
         vmDetail = {}
         #vm_id = 1
         try:
-            vm = VirtualMachine.objects.filter(id = vm_id)
+            vm = VirtualMachine.objects.filter(id=vm_id)
             if len(vm) != 0:
                 vmDetail = {'data': vm_id, 'Access-Control-Allow-Origin': '*'}
-                vmDetail ['uName']=vm[0].osInfo
-                vmDetail ['cpuInfo']= vm[0].cpuInfo
-                vmDetail ['memory']= vm[0].mem
-                vmDetail ['swap']=vm[0].swap
-                vmDetail ['cpuLoad']= vm[0].percentCPU
-                vmDetail ['tasks']=vm[0].tasks
-                vmDetail ['userName']= vm[0].username
-                vmDetail ['ipv4']=vm[0].inet4
-                vmDetail ['ipv6']=vm[0].inet6
-                vmDetail ['broadcast']=vm[0].bcast
-                vmDetail ['mask']=vm[0].mask
-                vmDetail ['dns']=vm[0].DNS
+                vmDetail['uName'] = vm[0].osInfo
+                vmDetail['cpuInfo'] = vm[0].cpuInfo
+                vmDetail['memory'] = vm[0].mem
+                vmDetail['swap'] = vm[0].swap
+                vmDetail['cpuLoad'] = vm[0].percentCPU
+                vmDetail['tasks'] = vm[0].tasks
+                vmDetail['userName'] = vm[0].username
+                vmDetail['ipv4'] = vm[0].inet4
+                vmDetail['ipv6'] = vm[0].inet6
+                vmDetail['broadcast'] = vm[0].bcast
+                vmDetail['mask'] = vm[0].mask
+                vmDetail['dns'] = vm[0].DNS
             else:
                 vmDetail = {'IPAddress': [], 'stateInfo': []}
         except Exception, e:
@@ -126,7 +126,15 @@ def getAllActiveVMsSimple():
     vms = VirtualMachine.objects.filter(lastConnectTime__gte = t)
     ActiveVMs = []
     for vm in vms:
-        dic = {'ip': vm.IPAddress,'os':vm.osInfo, 'UserName': vm.username, 'HostName': vm.hostname, 'Memory': vm.mem.split()[0], 'remark':"null", 'id':vm.id}
+        dic = {
+            'ip': vm.IPAddress,
+            'os': vm.osInfo,
+            'UserName': vm.username,
+            'HostName': vm.hostname,
+            'Memory': str(int(float(vm.mem.split()[1]) / float(vm.mem.split()[0]) * 100 + 0.5)),
+            'remark': "none",
+            'id': vm.id
+        }
         ActiveVMs.append(dic)
     return ActiveVMs
 
