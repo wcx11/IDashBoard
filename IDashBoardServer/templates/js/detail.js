@@ -3,6 +3,23 @@ var clockId = -1;
 
 $(document).ready(function() {
 
+	$('#task-status-table').DataTable({
+		paging: false,
+		order: [[2, 'desc']],
+		dom: 'Rt',
+		responsive: true,
+		columns: [
+			{data: 'PID', type: 'num'},
+			{data: 'USER'},
+			{data: 'cpu', type: 'num'},
+			{data: 'mem', type: 'num'},
+			{data: 'cmd'}
+		]
+	});
+
+	// 为datatable插件应用bootstrap样式
+	$('#task-status-table').removeClass('display').addClass('table table-striped table-bordered table-hover');
+
 	// 刷新表格数据按钮
 	$('#refresh-button').click(refreshData);
 	
@@ -31,7 +48,6 @@ function refreshData() {
 	console.log('reload start');
 
 	var url = $(location).attr('href').replace(/\/detail\//, '/get-detail/');
-	//var url = '/js/detail.json';
 
 	$.post(url, function(json) {
 		// 在这里更新表格数据
@@ -76,6 +92,11 @@ function refreshData() {
 		$('#td-broadcast').text(data.broadcast);
 		$('#td-mask').text(data.mask);
 		$('#td-dns').text(data.dns);
+
+		var table = $('#task-status-table').DataTable();
+		table.clear();
+		// 渲染表格
+		table.rows.add(data.process).draw();
 
 		// 更新完毕
 		console.log('reload complete');

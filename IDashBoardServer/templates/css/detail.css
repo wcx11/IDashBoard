@@ -14,9 +14,18 @@ footer p {
 	line-height: 15px;
 }
 
-table thead tr th {
+table.detail-table thead tr th {
 	text-align: center;
 	font-size: 18px;
+}
+
+#title-th {
+	text-align: center;
+	font-size: 18px;
+}
+
+#head-tr th {
+	border-bottom-width: 1px;
 }
 
 table {

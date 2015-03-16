@@ -89,7 +89,7 @@ def get_detail(request, vm_id):
                     pinfodic['cpu'] = pinfo[8]
                     pinfodic['mem'] = pinfo[9]
                     pinfodic['cmd'] = pinfo[11]
-                    vmDetail['process'].append(pinfodic)
+                    vmDetail['process'].append(pinfodic.copy())
                 #vmDetail['process'] = [{'PID':'1112','USER':'root', 'cpu': '21.7', 'mem':'3.1', 'cmd':'Xorg'},\
                  #   {'PID':'32376','USER':'wcx', 'cpu': '21.7', 'mem':'0.1', 'cmd':'top'}]
             else:
