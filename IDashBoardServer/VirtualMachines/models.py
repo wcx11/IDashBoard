@@ -22,12 +22,13 @@ class VirtualMachine(models.Model):
     percentCPU = models.TextField(null=True)
     mem = models.TextField(null=True)
     swap = models.TextField(null=True)
-
+    process = models.TextField(null=True)
     #others
     hostname = models.TextField(null=True)
     username = models.TextField(null=True)
     cpuInfo = models.TextField(null=True)
     osInfo = models.TextField(null=True)
+
 
     def updateInfo(self, info):
         #infolist = ["HostName", "UserName", "CPUInfo",\
@@ -59,3 +60,5 @@ class VirtualMachine(models.Model):
             self.inet6 = info["inet6"]
         if "os" in info:
             self.osInfo = info["os"]
+        if "process" in info:
+            self.process = info["process"]

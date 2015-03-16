@@ -3,7 +3,7 @@ __author__ = 'daiyue'
 class IDBClientConfig:
     autoCommands = ["HostName", "UserName", "CPUInfo",\
                     "Tasks", "Memory", "percentCPU", "Swap",\
-                    "inet4", "bcast", "mask", "DNS", "inet6", "os"]
+                    "inet4", "bcast", "mask", "DNS", "inet6", "os", "process"]
     commandMacDictionary = {'Top': "Top -l 1 -n 10",\
                             'UName': "uname -a",\
                             'HostName': "hostname",\
@@ -23,7 +23,8 @@ class IDBClientConfig:
                               'mask':'ifconfig -a | grep -i  ^eth -A 3 | grep -i -o "Mask:[0-9]\{1,3\}.[0-9]\{1,3\}.[0-9]\{1,3\}.[0-9]\{1,3\}" | awk -F ":" \'{print $2}\'',\
                               'inet6':'ifconfig -a | grep -i  ^eth -A 3 | grep -i "inet6 addr:" | awk \'{print $3}\'',\
                               "DNS":'cat /etc/resolv.conf | grep nameserver | awk \'{print $2}\'',\
-                              "os":'cat /etc/issue'}
+                              "os":'cat /etc/issue',\
+			                'process':'top -bn 1 | grep -A 15 "PID"'}
     commandWindowsDictionary = {}
     port = 6000
 
@@ -37,11 +38,11 @@ class IDBClientConfig:
 
     @staticmethod
     def getServerHost():
-        return "192.168.1.102"
+        return "192.168.199.220"
 
 
     def getServerPort(self):
-        return 8000
+        return 9000
 
     def getSocketPort(self):
         return self.port
