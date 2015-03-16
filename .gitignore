@@ -2,3 +2,4 @@
 /IDashBoardClient/.idea
 /IDashBoardServer/.idea
 *.pyc
+*.orig

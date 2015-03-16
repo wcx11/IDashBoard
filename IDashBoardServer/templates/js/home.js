@@ -5,7 +5,7 @@ $(document).ready(function() {
 
 	// 数据表插件初始化
 	$('#main-data-table').DataTable({
-		dom: 'R<"row"<"#vm-count.col-sm-6"><"col-sm-6"f>>rt<"row"<"col-sm-6"l><"col-sm-6"p>>',
+		dom: 'R<"row"<"#vm-count.col-sm-6"<"#vm-count-label">><"col-sm-6"f>>rt<"row"<"col-sm-6"l><"col-sm-6"p>>',
 		ajax: '/refreshSimplePage/',
 		columns: [
 			{'data': 'ip'},
@@ -31,17 +31,21 @@ $(document).ready(function() {
 					var row = api.row(rowIndex).node();
 					var id = $(row).attr('data-id');
 
-					return $('<ul data-dtr-index="0" data-id="' + id + '"></ul>').append(html);
+					var ulElement = $('<ul data-dtr-index="0"></ul>').append(html);
+					return $('<div data-id="' + id + '"></div>').append(ulElement);
 				}
 			}
 		},
 		initComplete: function() {
 			console.log('init complete');
-			var vmCount = this.api().data().length;
-			// 显示在线虚拟机数量
-			$('#vm-count').html('<label><strong> ' + vmCount + ' </strong> virtual machines online.</label>');
 			// 添加刷新按钮组
 			$('#vm-count').prepend($('#refresh-button-group'));
+		},
+		drawCallback: function() {
+			console.log('draw complete');
+			var vmCount = this.api().data().length;
+			// 显示在线虚拟机数量
+			$('#vm-count-label').html('<label><strong> ' + vmCount + ' </strong> virtual machines online.</label>');
 			if (vmCount != 0) {
 				// 单击单元格跳转到详细信息
 				$('#main-data-table tbody').on('click', 'tr', function() {
@@ -49,7 +53,7 @@ $(document).ready(function() {
 					$(location).attr('href', '/detail/' + $(this).attr('data-id') + '/');
 				});
 				// 单击响应式插件生成的child单元格跳转到详细信息
-				$('#main-data-table tbody').on('click', 'ul', function(e) {
+				$('#main-data-table tbody').on('click', 'div', function(e) {
 					console.log($(this).attr('data-id'));
 					$(location).attr('href', '/detail/' + $(this).attr('data-id') + '/');
 					e.stopPropagation();
