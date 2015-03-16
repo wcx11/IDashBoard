@@ -66,12 +66,24 @@ $(document).ready(function() {
 		},
 		rowCallback: function(row, data) {
 			// 修改占用率为进度条样式
-			var mempercent = data.Memory;
-			var memhtml = '<div class="progress" style="margin-bottom: 0px;"><div class="progress-bar" role="progressbar" style="min-width: 2em; width: ' + mempercent + ';">' + mempercent + '</div></div>';
-            var cpupercent = data.CPU;
-            var cpuhtml = '<div class="progress" style="margin-bottom: 0px;"><div class="progress-bar" role="progressbar" style="min-width: 2em; width: ' + cpupercent + ';">' + cpupercent + '</div></div>';
-			$('td:eq(4)', row).html(memhtml);
-            $('td:eq(5)', row).html(cpuhtml);
+			function getProgressBarClass(str) {
+				var p = Number(str.substring(0, str.length - 1));
+				if (p <= 20) {
+					return ' progress-bar-success';
+				} else if (p <= 50) {
+					return '';
+				} else if (p <= 80) {
+					return ' progress-bar-warning';
+				} else {
+					return ' progress-bar-danger';
+				}
+			}
+			var memPercent = data.Memory;
+			var memHtml = '<div class="progress" style="margin-bottom: 0px;"><div class="progress-bar' + getProgressBarClass(memPercent) + '" role="progressbar" style="min-width: 2em; width: ' + memPercent + ';">' + memPercent + '</div></div>';
+            var cpuPencent = data.CPU;
+            var cpuHtml = '<div class="progress" style="margin-bottom: 0px;"><div class="progress-bar' + getProgressBarClass(cpuPencent) + '" role="progressbar" style="min-width: 2em; width: ' + cpuPencent + ';">' + cpuPencent + '</div></div>';
+			$('td:eq(4)', row).html(memHtml);
+            $('td:eq(5)', row).html(cpuHtml);
 
 			// 去掉Operating System中末尾的符号
 			// 这部分最好后台来做
