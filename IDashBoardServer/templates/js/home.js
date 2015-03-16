@@ -67,9 +67,9 @@ $(document).ready(function() {
 		rowCallback: function(row, data) {
 			// 修改占用率为进度条样式
 			var mempercent = data.Memory;
-			var memhtml = '<div class="progress" style="margin-bottom: 0px;"><div class="progress-bar" role="progressbar" style="min-width: 2em; width: ' + mempercent + '%;">' + mempercent + '%</div></div>';
+			var memhtml = '<div class="progress" style="margin-bottom: 0px;"><div class="progress-bar" role="progressbar" style="min-width: 2em; width: ' + mempercent + ';">' + mempercent + '</div></div>';
             var cpupercent = data.CPU;
-            var cpuhtml = '<div class="progress" style="margin-bottom: 0px;"><div class="progress-bar" role="progressbar" style="min-width: 2em; width: ' + cpupercent + '%;">' + cpupercent + '%</div></div>';
+            var cpuhtml = '<div class="progress" style="margin-bottom: 0px;"><div class="progress-bar" role="progressbar" style="min-width: 2em; width: ' + cpupercent + ';">' + cpupercent + '</div></div>';
 			$('td:eq(4)', row).html(memhtml);
             $('td:eq(5)', row).html(cpuhtml);
 
