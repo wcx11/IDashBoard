@@ -24,7 +24,7 @@ class IDBClientConfig:
                               'inet6':'ifconfig -a | grep -i  ^eth -A 3 | grep -i "inet6 addr:" | awk \'{print $3}\'',\
                               "DNS":'cat /etc/resolv.conf | grep nameserver | awk \'{print $2}\'',\
                               "os":'cat /etc/issue',\
-			                'process':'top -bn 1 | grep -A 15 "PID"'}
+			                'process':'top -bn 1 | grep -A 15 "PID" | sed "1 d"'}
     commandWindowsDictionary = {}
     port = 6000
 
