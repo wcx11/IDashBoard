@@ -1,4 +1,4 @@
-var refreshInterval = 0;
+﻿var refreshInterval = 0;
 var clockId = -1;
 
 $(document).ready(function() {
@@ -87,8 +87,8 @@ $(document).ready(function() {
 
 			// 去掉Operating System中末尾的符号
 			// 这部分最好后台来做
-			var osText = $('td:eq(1)', row).text();
-			$('td:eq(1)', row).text(osText.substring(0, osText.length - 8));
+			//var osText = $('td:eq(1)', row).text();
+			//$('td:eq(1)', row).text(osText.substring(0, osText.length - 8));
 		}
 	});
 

@@ -78,25 +78,26 @@ def get_detail(request, vm_id):
                 vmDetail['mask'] = vm[0].mask
                 vmDetail['dns'] = vm[0].DNS
                 vmDetail['process'] = []
-                process = vm[0].process.split("\n")
-                pinfodic = {}
-                for p in process:
-                    pinfo = p.split()
-                    if len(pinfo) < 12:
-                        break
-                    pinfodic['PID'] = pinfo[0]
-                    pinfodic['USER'] = pinfo[1]
-                    pinfodic['cpu'] = pinfo[8]
-                    pinfodic['mem'] = pinfo[9]
-                    pinfodic['cmd'] = pinfo[11]
-                    vmDetail['process'].append(pinfodic.copy())
+                if len(vm[0].process) != 0:
+                    process = vm[0].process.split("\n")
+                    pinfodic = {}
+                    for p in process:
+                        pinfo = p.split()
+                        if len(pinfo) < 12:
+                            break
+                        pinfodic['PID'] = pinfo[0]
+                        pinfodic['USER'] = pinfo[1]
+                        pinfodic['cpu'] = pinfo[8]
+                        pinfodic['mem'] = pinfo[9]
+                        pinfodic['cmd'] = pinfo[11]
+                        vmDetail['process'].append(pinfodic.copy())
                 #vmDetail['process'] = [{'PID':'1112','USER':'root', 'cpu': '21.7', 'mem':'3.1', 'cmd':'Xorg'},\
                  #   {'PID':'32376','USER':'wcx', 'cpu': '21.7', 'mem':'0.1', 'cmd':'top'}]
             else:
                 vmDetail = {'IPAddress': [], 'stateInfo': []}
         except Exception, e:
             print e
-            return
+            return HttpResponse(e)
         return HttpResponse(json.dumps(vmDetail))
     return render_to_response('index.html', locals())
 
@@ -141,16 +142,29 @@ def getAllActiveVMsSimple():
     vms = VirtualMachine.objects.filter(lastConnectTime__gte = t)
     ActiveVMs = []
     for vm in vms:
-        dic = {
-            'ip': vm.IPAddress,
-            'os': vm.osInfo,
-            'UserName': vm.username,
-            'HostName': vm.hostname,
-            'Memory': str(100 - int(float(vm.mem.split()[1]) / float(vm.mem.split()[0]) * 100 + 0.5)) + '%',
-            'CPU': str(int(100 - float(vm.percentCPU.split()[3]) + 0.5)) + '%',
-            'id': vm.id
-        }
-        ActiveVMs.append(dic)
+        try:
+            dic = {
+                'ip': vm.IPAddress,
+                'os': vm.osInfo,
+                'UserName': vm.username,
+                'HostName': vm.hostname,
+                'Memory': str(100 - int(float(vm.mem.split()[1]) / float(vm.mem.split()[0]) * 100 + 0.5)) + '%',
+                'CPU': str(int(100 - float(vm.percentCPU.split()[3]) + 0.5)) + '%',
+                'id': vm.id
+            }
+        except Exception, e:
+            print e
+            dic = {
+                'ip': vm.IPAddress,
+                'os': 'error',
+                'UserName': 'error',
+                'HostName': 'error',
+                'Memory': '0%',
+                'CPU': '0%',
+                'id': vm.id
+            }
+        finally:
+            ActiveVMs.append(dic)
     return ActiveVMs
 
 
