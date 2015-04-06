@@ -1,15 +1,11 @@
-__author__ = 'daiyue'
+__author__ = 'wcx'
 
-class IDBClientConfig:
-    autoCommands = ["HostName", "UserName", "CPUInfo",\
+autoCommands = ["HostName", "UserName", "CPUInfo",\
                     "Tasks", "Memory", "percentCPU", "Swap",\
                     "inet4", "bcast", "mask", "DNS", "inet6", "os", "process"]
-    commandMacDictionary = {'Top': "Top -l 1 -n 10",\
-                            'UName': "uname -a",\
-                            'HostName': "hostname",\
-                            'UserName': "whoami",\
-                            'CPUInfo':"sysctl -n machdep.cpu.brand_string"}
-    commandLinuxDictionary = {'Top': "top -bn 1 | head -n 5",\
+commandMacDictionary = {}
+commandWindowsDictionary = {}
+commandLinuxDictionary = {'Top': "top -bn 1 | head -n 5",\
                               'UName': "uname -a",\
                               'HostName': "hostname",\
                               'CPUInfo':'cat /proc/cpuinfo | grep name|cut -f2 -d:|uniq -c',\
@@ -25,27 +21,17 @@ class IDBClientConfig:
                               "DNS":'cat /etc/resolv.conf | grep nameserver | awk \'{print $2}\'',\
                               "os":'cat /etc/issue',\
 			                'process':'top -bn 1 | grep -A 15 "PID" | sed "1 d"'}
-    commandWindowsDictionary = {}
-    port = 6000
 
-    def getCommandDictionary(self, pf):
-        if pf == "Windows":
-            return self.commandWindowsDictionary
-        elif pf == "Linux":
-            return self.commandLinuxDictionary
-        elif pf == "Darwin":
-            return self.commandMacDictionary
+def getCommandDictionary(pf):
+    if pf == "Windows":
+        return commandWindowsDictionary
+    elif pf == "Linux":
+        return commandLinuxDictionary
+    elif pf == "Darwin":
+        return commandMacDictionary
 
-    @staticmethod
-    def getServerHost():
-        return "192.168.199.220"
+def getServerHost():
+    return "192.168.199.220"
 
-
-    def getServerPort(self):
-        return 9000
-
-    def getSocketPort(self):
-        return self.port
-    def setSocketPort(self, p):
-        self.port = p
-        return
+def getServerPort():
+    return 9000
