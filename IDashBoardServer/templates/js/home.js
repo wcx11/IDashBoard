@@ -32,7 +32,7 @@ $(document).ready(function() {
 					var id = $(row).attr('data-id');
 
 					var ulElement = $('<ul data-dtr-index="0"></ul>').append(html);
-					return $('<div data-id="' + id + '"></div>').append(ulElement);
+					return $('<div class="responsive-child" data-id="' + id + '"></div>').append(ulElement);
 				}
 			}
 		},
@@ -53,7 +53,7 @@ $(document).ready(function() {
 					$(location).attr('href', '/detail/' + $(this).attr('data-id') + '/');
 				});
 				// 单击响应式插件生成的child单元格跳转到详细信息
-				$('#main-data-table tbody').on('click', 'div', function(e) {
+				$('#main-data-table tbody').on('click', 'div.responsive-child', function(e) {
 					console.log($(this).attr('data-id'));
 					$(location).attr('href', '/detail/' + $(this).attr('data-id') + '/');
 					e.stopPropagation();
