@@ -31,7 +31,7 @@ def getCommandDictionary(pf):
         return commandMacDictionary
 
 def getServerHost():
-    return "192.168.199.220"
+    return "127.0.0.1"
 
 def getServerPort():
-    return 9000
+    return 8000

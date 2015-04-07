@@ -2,17 +2,19 @@ __author__ = 'wcx'
 
 import httplib, urllib, time
 from command import *
-#from config import *
+import types
 
 httpClient = None
 t = None
-headers = {"Content-type": "application/x-www-form-urlencoded"
-                    , "Accept": "text/plain", "Host":"192.168.196.1"}
+headers = {"Content-type": "application/x-www-form-urlencoded" \
+                    , "Accept": "text/html"}
+#headers = {"Host":"192.168.199.220", "Accept": "text/plain"}
 
 def sendCommandResult(api, params):
     serverHost = getServerHost()
     serverPort = getServerPort()
     response = None
+    stateHttpClient = None
     try:
         stateHttpClient = httplib.HTTPConnection(serverHost, serverPort, timeout = 30)
         stateHttpClient.request("POST", api, params, headers)
@@ -25,16 +27,38 @@ def sendCommandResult(api, params):
         return response
 
 def connectServer():
+    response = None
     while(True):
-        params = urllib.urlencode({'IPAddress': '192.168.233.129', 'Port': 0})
+        state = 1
+        myip = executeCMD('inet4')
+        params = urllib.urlencode({'IPAddress': myip, 'Port': 0})
         response = sendCommandResult(api = "/helloServer/", params = params)
         if response and response.status == 200:
             #execute command and send to server
+            num = 0
             while(True):
-                result = executeAutoCMD()
-                params = urllib.urlencode({"stateInfo": result, "IPAddress": '192.168.233.129'})
-                sendCommandResult(api = "/saveVMState/", params = params)
-                time.sleep(3)
-        else:
-            time.sleep(5000)
+                if(state == 1):
+                    result = executeAutoCMD()
+                    params = urllib.urlencode({"stateInfo": result, "IPAddress": myip})
+                    response = sendCommandResult(api = "/saveVMState/", params = params)
+                else:
+                    params = urllib.urlencode({"IPAddress": myip})
+                    response = sendCommandResult(api = "/saveVMState/", params = params)
+                if response and response.status == 200:
+                    if "content" in response.msg.dict and response.msg.dict["content"] == "someone":
+                        num = 0
+                        state = 1
+                    else:
+                        state = 0
+                        num = num + 1
+                        if num == 10:
+                            num = 0
+                            state = 1
+                    time.sleep(4)
+                else:
+                    state = 1
+                    num = 0
+                    break
+
+        time.sleep(5000)
     return

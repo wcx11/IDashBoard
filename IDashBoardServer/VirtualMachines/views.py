@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from VirtualMachines.models import VirtualMachine
 import time, datetime
+from django.contrib.sessions.models import Session
 import json
 
 # Create your views here.
@@ -12,9 +13,9 @@ def VMState(request):
         try:
             vm = VirtualMachine.objects.filter(IPAddress= ip)
             if len(vm) == 0:
-                return
+                return HttpResponse('error')
         except:
-            return
+            return HttpResponse('error')
     if 'stateInfo' in request.POST and request.POST['stateInfo']:
         stateInfo = request.POST['stateInfo']
         vm[0].stateInfo = stateInfo
@@ -24,11 +25,15 @@ def VMState(request):
         vm[0].save()
         #encode = json.dumps(eval(request.POST['stateInfo']))
         #print encode["HostName"]
-    try:
-        VirtualMachine.objects.filter()
-    except:
-        return HttpResponse("error")
-    return HttpResponse("saveDone")
+    t = datetime.datetime.now()
+    s = Session.objects.filter(expire_date__gte = t)
+    response = HttpResponse()
+    if len(s) != 0:
+        response["content"] = "someone"
+    else:
+        response.write("noone")
+        response["content"] = "noone"#response['person'] = "noone"
+    return response
 
 def helloServer(request):
     if 'IPAddress' in request.POST and request.POST['IPAddress'] and 'Port' in request.POST and request.POST['Port']:
@@ -49,4 +54,9 @@ def helloServer(request):
             return
     else:
         return
-    return HttpResponse("Hello world")
+    #return HttpResponse(json.dumps({"haha":"Hello world"}))
+    r = HttpResponse()
+    r.write("hello world")
+    r["content"] = "helloworld"
+    #return HttpResponse("hello world")
+    return r
