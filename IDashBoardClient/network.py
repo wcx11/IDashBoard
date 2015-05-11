@@ -31,26 +31,27 @@ def connectServer():
     while(True):
         state = 1
         myip = executeCMD('inet4')
-        params = urllib.urlencode({'IPAddress': myip, 'Port': 0})
-        response = sendCommandResult(api = "/helloServer/", params = params)
+        uuid = executeCMD('uuid')
+        params = urllib.urlencode({'IPAddress': myip, 'Port': 23333, 'uuid': uuid})
+        response = sendCommandResult(api="/helloServer/", params=params)
         if response and response.status == 200:
             #execute command and send to server
             num = 0
             while(True):
                 if(state == 1):
                     result = executeAutoCMD()
-                    params = urllib.urlencode({"stateInfo": result, "IPAddress": myip})
-                    response = sendCommandResult(api = "/saveVMState/", params = params)
+                    params = urllib.urlencode({"stateInfo": result, "IPAddress": myip, "uuid": uuid})
+                    response = sendCommandResult(api="/saveVMState/", params=params)
                 else:
                     params = urllib.urlencode({"IPAddress": myip})
-                    response = sendCommandResult(api = "/saveVMState/", params = params)
+                    response = sendCommandResult(api="/saveVMState/", params=params)
                 if response and response.status == 200:
                     if "content" in response.msg.dict and response.msg.dict["content"] == "someone":
                         num = 0
                         state = 1
                     else:
                         state = 0
-                        num = num + 1
+                        num += 1
                         if num == 10:
                             num = 0
                             state = 1
@@ -59,6 +60,5 @@ def connectServer():
                     state = 1
                     num = 0
                     break
-
         time.sleep(5000)
     return
