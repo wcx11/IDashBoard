@@ -23,7 +23,7 @@ def saveUserInfo(request):
                 if request.POST.get('phone',''):
                     profile.phone = request.POST.get('phone','')
                 if request.POST.get('department',''):
-                    profile.department = request.POST.get('department', '')
+                    profile.department = request.POST.get('department', '').encode('utf-8')
                 u[0].save()
                 profile.save()
             else:

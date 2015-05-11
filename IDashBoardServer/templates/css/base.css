@@ -1,0 +1,15 @@
+.navbar {
+	border-radius: 0px;
+}
+
+footer {
+	padding-top: 20px;
+	padding-bottom: 20px;
+	margin-top: 20px;
+	border-top: 1px solid #e5e5e5;
+	text-align: center;
+}
+
+footer p {
+	line-height: 15px;
+}

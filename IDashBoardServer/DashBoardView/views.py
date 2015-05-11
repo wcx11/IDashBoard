@@ -5,24 +5,16 @@ import datetime, time, json, string
 from django.http import HttpResponse, HttpResponseRedirect
 from DashBoardUser.models import DashBoardUser
 from django.contrib import auth
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
+from django.db.models import Q
 
 # Create your views here.
-
-def HomePage(request):
-    if request.user.is_authenticated():
-        user = request.user
-        ActiveVMs = getAllActiveVMs()
-        #c = template.Context({'ActiveVMs':list})
-        stateList = ['HostName', 'UserName', 'CPUInfo']
-        #page = HomePage()
-        return render_to_response('home.html', locals())
-    else:
-        return render_to_response('index.html', locals())
 
 
 def home(request):
     if request.user.is_authenticated():
+        t = Group.objects.filter(name='teachers')[0]
+        isTeacher = t in request.user.groups.all()
         return render_to_response('home.html',locals())
     else:
         return render_to_response('index.html', locals())
@@ -30,6 +22,8 @@ def home(request):
 
 def detail(request):
     if request.user.is_authenticated():
+        t = Group.objects.filter(name='teachers')[0]
+        isTeacher = t in request.user.groups.all()
         return render_to_response('detail.html', locals())
     else:
         return render_to_response('index.html')
@@ -38,6 +32,8 @@ def detail(request):
 
 def settings(request):
     if request.user.is_authenticated():
+        t = Group.objects.filter(name='teachers')[0]
+        isTeacher = t in request.user.groups.all()
         u = User.objects.filter(id=request.user.id)
         if len(u) != 0:
             try:
@@ -51,7 +47,7 @@ def settings(request):
             if profile.phone:
                 phone = profile.phone
             if profile.department:
-                department = profile.department
+                department = profile.department.encode('utf-8')
             return render_to_response('settings.html', locals())
 
     return render_to_response('index.html')
@@ -121,6 +117,14 @@ def RefreshSimplePage(request):
     else:
         return render_to_response('index.html', locals())
 
+def RefreshSimplePageHost(request):
+    if request.user.is_authenticated():
+        ActiveVMs = getAllActiveVMsSimpleHost()
+        response = {'data': ActiveVMs}
+        response['Access-Control-Allow-Origin'] = '*'
+        return HttpResponse(json.dumps(response))
+    else:
+        return render_to_response('index.html', locals())
 
 def VMDetails(request, ip):
     vmDetail = {}
@@ -136,10 +140,11 @@ def VMDetails(request, ip):
     return HttpResponse(json.dumps(vmDetail))
 
 
-def getAllActiveVMsSimple():
+def getAllActiveVMsSimpleHost():
     t = datetime.datetime.now()
     t -= datetime.timedelta(seconds=60)
-    vms = VirtualMachine.objects.filter(lastConnectTime__gte = t)
+    #vms = VirtualMachine.objects.filter(lastConnectTime__gte = t)
+    vms = VirtualMachine.objects.filter(uuid=None)
     ActiveVMs = []
     for vm in vms:
         try:
@@ -156,9 +161,43 @@ def getAllActiveVMsSimple():
             print e
             dic = {
                 'ip': vm.IPAddress,
-                'os': 'error',
-                'UserName': 'error',
-                'HostName': 'error',
+                'os': vm.osInfo,
+                'UserName': vm.username,
+                'HostName': vm.hostname,
+                'Memory': '0%',
+                'CPU': '0%',
+                'id': vm.id
+            }
+        finally:
+            ActiveVMs.append(dic)
+    return ActiveVMs
+
+
+
+def getAllActiveVMsSimple():
+    t = datetime.datetime.now()
+    t -= datetime.timedelta(seconds=60)
+    #vms = VirtualMachine.objects.filter(lastConnectTime__gte = t)
+    vms = VirtualMachine.objects.filter(~Q(uuid = None), ~Q(state = 3))
+    ActiveVMs = []
+    for vm in vms:
+        try:
+            dic = {
+                'ip': vm.IPAddress,
+                'os': vm.osInfo,
+                'UserName': vm.username,
+                'HostName': vm.hostname,
+                'Memory': str(100 - int(float(vm.mem.split()[1]) / float(vm.mem.split()[0]) * 100 + 0.5)) + '%',
+                'CPU': str(int(100 - float(vm.percentCPU.split()[3]) + 0.5)) + '%',
+                'id': vm.id
+            }
+        except Exception, e:
+            print e
+            dic = {
+                'ip': vm.IPAddress,
+                'os': vm.osInfo,
+                'UserName': vm.username,
+                'HostName': vm.hostname,
                 'Memory': '0%',
                 'CPU': '0%',
                 'id': vm.id
@@ -177,6 +216,40 @@ def getAllActiveVMs():
         dic = {'IPAddress': vm.IPAddress, 'stateInfo': eval(vm.stateInfo)}
         ActiveVMs.append(dic)
     return ActiveVMs
+
+def apply(request):
+    if request.user.is_authenticated():
+        t = Group.objects.filter(name='teachers')[0]
+        isTeacher = t in request.user.groups.all()
+        return render_to_response('apply.html', locals())
+    else:
+        return render_to_response('index.html', locals())
+
+def audit(request):
+    if request.user.is_authenticated():
+        t = Group.objects.filter(name='teachers')[0]
+        isTeacher = t in request.user.groups.all()
+        return render_to_response('audit.html', locals())
+    else:
+        return render_to_response('index.html', locals())
+
+
+def applications(request):
+    if request.user.is_authenticated():
+        t = Group.objects.filter(name='teachers')[0]
+        isTeacher = t in request.user.groups.all()
+        return render_to_response('applications.html', locals())
+    else:
+        return render_to_response('index.html', locals())
+
+
+def myVMs(request):
+    if request.user.is_authenticated():
+        t = Group.objects.filter(name='teachers')[0]
+        isTeacher = t in request.user.groups.all()
+        return render_to_response('myVMs.html', locals())
+    else:
+        return render_to_response('index.html', locals())
 
 
 def login(request):
@@ -202,5 +275,3 @@ def logout(request):
     auth.logout(request)
     # Redirect to a success page.
     return HttpResponseRedirect("/")
-
-

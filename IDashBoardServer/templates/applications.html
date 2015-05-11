@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}
+    My Applications
+{% endblock %}
+
+
+{% block custom_js %}
+    <script src="/js/applications.js"></script>
+{% endblock %}
+
+{% block container %}
+    <div class="container">
+        <div class="row">
+            <!-- <div class="col-md-10 col-md-offset-1"> -->
+            <div class="col-md-12">
+                <!-- Datatable元素 -->
+                <table id="application-data-table" class="display" cellspacing="0" width="100%">
+                    <thead>
+                        <tr>
+                            <th>Type</th>
+                            <th>Parameter</th>
+                            <th>Submission time</th>
+                            <th>state</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -38,6 +38,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'VirtualMachines',
     'DashBoardUser',
+    'Applications',
 )
 
 MIDDLEWARE_CLASSES = (

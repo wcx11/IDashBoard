@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, render_to_response
 from django.http import HttpResponse
 from VirtualMachines.models import VirtualMachine
 import time, datetime
@@ -7,15 +7,28 @@ import json
 
 # Create your views here.
 
+
 def VMState(request):
-    if 'IPAddress' in request.POST and request.POST['IPAddress']:
-        ip = request.POST['IPAddress']
+    if 'uuid' in request.POST and request.POST['uuid']:
+        uuid = request.POST['uuid']
         try:
-            vm = VirtualMachine.objects.filter(IPAddress= ip)
+            vm = VirtualMachine.objects.filter(uuid=uuid)
             if len(vm) == 0:
-                return HttpResponse('error')
-        except:
+                if 'IPAddress' in request.POST and request.POST['IPAddress']:
+                    ip = request.POST['IPAddress']
+                    try:
+                        vm = VirtualMachine.objects.filter(IPAddress=ip)
+                        if len(vm) == 0:
+                            return HttpResponse('error')
+                    except Exception, e:
+                        print e
+                        return HttpResponse('error')
+                else:
+                    return HttpResponse('error')
+        except Exception, e:
+            print e
             return HttpResponse('error')
+
     if 'stateInfo' in request.POST and request.POST['stateInfo']:
         stateInfo = request.POST['stateInfo']
         vm[0].stateInfo = stateInfo
@@ -35,6 +48,7 @@ def VMState(request):
         response["content"] = "noone"#response['person'] = "noone"
     return response
 
+
 def helloServer(request):
     if 'IPAddress' in request.POST and request.POST['IPAddress'] and 'Port' in request.POST and request.POST['Port']:
         ip = request.POST['IPAddress']
@@ -47,7 +61,7 @@ def helloServer(request):
                 vm[0].port = port
                 vm[0].save()
             else:
-                newVM = VirtualMachine(IPAddress= ip, port= port, lastConnectTime = datetime.datetime.now())
+                newVM = VirtualMachine(IPAddress=ip, port=port, lastConnectTime=datetime.datetime.now())
                 newVM.save()
         except Exception, e:
             print e
@@ -60,3 +74,37 @@ def helloServer(request):
     r["content"] = "helloworld"
     #return HttpResponse("hello world")
     return r
+
+
+def get_my_VMs(request):
+    if request.user.is_authenticated():
+        virtual_machines = VirtualMachine.objects.filter(vmUser=request.user, state__lt=3)
+        myVMs = []
+        for virtual_machine in virtual_machines:
+            try:
+                application = virtual_machine.vm.order_by('submissionTime').first()
+                dic = {
+                    "id": virtual_machine.id,
+                    "uuid": virtual_machine.uuid,
+                    "state": virtual_machine.state,
+                    "parameter":
+                    {
+                        "os": application.OS,
+                        "memory": application.Memory,
+                        "hostname": virtual_machine.hostname,
+                        "username": virtual_machine.username
+                    },
+                    "treatment": "edit/delete"
+                }
+            except Exception, e:
+                print e
+                dic = {
+
+                }
+            finally:
+                myVMs.append(dic)
+        response={'data': myVMs}
+        response['Access-Control-Allow-Origin'] = '*'
+        return HttpResponse(json.dumps(response))
+    else:
+        return render_to_response('index.html', locals())

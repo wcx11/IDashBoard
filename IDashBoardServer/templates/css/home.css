@@ -1,29 +1,24 @@
-.navbar {
-	border-radius: 0px;
-}
-
-#main-data-table tbody {
-	cursor: pointer;
-}
-
 #vm-count-label {
 	display: inline;
 	line-height: 30px;
 	margin-left: 15px;
 }
+#host-count-label {
+	display: inline;
+	line-height: 30px;
+	margin-left: 15px;
+}
+
+#main-data-table tbody {
+	cursor: pointer;
+}
+#host-data-table tbody {
+	cursor: pointer;
+}
 
 #vm-count-label label {
 	font-weight: normal;
 }
-
-footer {
-	padding-top: 20px;
-	padding-bottom: 20px;
-	margin-top: 20px;
-	border-top: 1px solid #e5e5e5;
-	text-align: center;
-}
-
-footer p {
-	line-height: 15px;
+#host-count-label label {
+	font-weight: normal;
 }

@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block custom_css %}
+    <link rel="stylesheet" href="/css/apply.css">
+{% endblock %}
+{% block custom_js %}
+    <script src="/lib/jquery-validation-1.13.1/jquery.validate.min.js"></script>
+    <script src="/js/apply.js"></script>
+{% endblock %}
+{% block apply_active %}
+    class = "active"
+{% endblock %}
+
+{% block container %}
+    <div class="container">
+        <div class = "row">
+            <div class="col-sm-5 col-sm-offset-1">
+                <div class="row">
+                    <div class="form-group col-sm-8 col-sm-offset-4"><h4>Apply for a new Virtual Machine</h4></div>
+                </div>
+                <form class="form-horizontal" action = "/do_apply/" method="post" id="apply-form">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">OS</label>
+                        <div class="col-sm-8">
+                            <select class="form-control" name="os">
+                                <option value="1">Ubuntu 14.04 LTS</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">Password</label>
+                        <div class="col-sm-8">
+                            <input type="password" class="form-control", placeholder="password" id="password" name="password">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">Pwd Confirm</label>
+                        <div class="col-sm-8">
+                            <input type="password" class="form-control", placeholder="pwd Confirm" id="pwd_confirm" name="pwd_confirm">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">Memory</label>
+                        <div class="col-sm-8">
+                            <select class="form-control" name="memory">
+                                <option value="1">1024M</option>
+                                <option value="2">2048M</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="col-sm-4 btn btn-primary pull-right">Apply</button>
+
+                </form>
+            </div>
+            <div class="col-sm-5">
+				<img class="page-image" src="/img/cloudcomputing.jpg">
+			</div>
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,11 +1,16 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 class VirtualMachine(models.Model):
-    IPAddress = models.TextField()
+    uuid = models.TextField(null=True)
+    vmUser = models.ForeignKey(User, related_name='vm_user', null=True)
+    vmHost = models.ForeignKey('self', related_name='vm_host', null=True)
+    IPAddress = models.TextField(null=True)
     port = models.PositiveIntegerField(null=True)
-    state = models.IntegerField(null=True)#if the virtual machine is online
-    lastConnectTime = models.DateTimeField(auto_now=True, auto_now_add=False)#when the client connect the server for the last time
+    state = models.IntegerField(null=True)  # 0 = online, 1 = offline, 2 = savestate, 3 = deleted
+    lastConnectTime = models.DateTimeField(auto_now=True, auto_now_add=False)
+    # when the client connect the server for the last time
     stateInfo = models.TextField(null=True)
 
     #from ifconfig command

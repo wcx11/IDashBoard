@@ -1,73 +1,19 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-	<title>DashBoard Settings</title>
+{% extends "base.html" %}
 
-	<!-- ========================= external css ========================= -->
-	<!-- bootstrap css -->
-	<link rel="stylesheet" href="/lib/bootstrap-3.3.2/bootstrap.min.css">
+{% block title %}
+    iDashBoard Settings
+{% endblock %}
 
-	<!-- ========================= external javascript ========================= -->
-	<!-- jquery 1.11.2 -->
-	<script src="/lib/jquery-1.11.2/jquery.min.js"></script>
-	<!-- bootstrap 3.3.2 -->
-	<script src="/lib/bootstrap-3.3.2/bootstrap.min.js"></script>
-	<!-- jquery validation 1.13.1 -->
-	<script src="/lib/jquery-validation-1.13.1/jquery.validate.min.js"></script>
-
-	<!-- ========================= custom css ========================= -->
+{% block custom_css %}
 	<link rel="stylesheet" href="/css/settings.css">
-	<!-- ========================= custom javascript ========================= -->
-	<script src="/js/settings.js"></script>
-</head>
-<body>
-	<!-- 导航条 -->
-	<nav class="navbar navbar-inverse">
-		<div class="container">
-			<!-- 导航条左侧的文字及移动设备展开按钮 -->
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-body">
-					<span class="sr-only">Toggle Navgation</span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-				</button>
-				<a class="navbar-brand" href="javascript:void(0);"><strong>iDashBoard</strong></a>
-			</div>
-			<!-- 导航条主体 -->
-			<!-- 响应式 -->
-			<div class="collapse navbar-collapse" id="navbar-collapse-body">
-				<!-- 左侧按钮 -->
-				<ui class="nav navbar-nav" style="margin-left: 100px;">
-					<li><a href="/home/">Mainboard<span class="sr-only">(current)</span></a></li>
-					<li><a href="javascript:void(0);">Statistics</a></li>
-				</ui>
-				<!-- 右侧按钮 -->
-				<ul class="nav navbar-nav navbar-right">
-					<li class="dropdown">
-						<a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-							<span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-							{{ request.user.username }}
-							<span class="caret"></span>
-						</a>
-						<ul class="dropdown-menu" role="menu">
-							<li><a href="/settings/">
-								<span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-								&nbsp;Settings
-							</a></li>
-							<li class="divider"></li>
-							<li><a href="/logout/">
-								<span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>
-								&nbsp;Log out
-							</a></li>
-						</ul>
-					</li>
-				</ul>
-			</div>
-		</div>
-	</nav>
+{% endblock %}
 
+{% block custom_js %}
+    <script src="/lib/jquery-validation-1.13.1/jquery.validate.min.js"></script>
+    <script src="/js/settings.js"></script>
+{% endblock %}
+
+{% block container %}
 	<!-- 文档容器 -->
 	<div class="container">
 		<div class="row">
@@ -139,13 +85,4 @@
 			</div>
 		</div>
 	</div>
-
-	<!-- 页脚 -->
-	<footer>
-		<div class="container">
-			<p><a target="_blank" href="http://tns.thss.tsinghua.edu.cn/">Institute of TNS, School of Software</a>, Tsinghua University &copy; 2015</p>
-			<p>Powered by <a target="_blank" href="http://v3.bootcss.com/">Bootstrap</a>, <a target="_blank" href="https://datatables.net/">DataTables</a></p>
-		</div>
-	</footer>
-</body>
-</html>
+{% endblock %}
