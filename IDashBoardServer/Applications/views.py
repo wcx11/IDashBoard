@@ -3,6 +3,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from Applications.models import Application
 from VirtualMachines.models import VirtualMachine
 import datetime, json
+import random
 from notifyThead import NotifyThread
 # Create your views here.
 
@@ -11,6 +12,8 @@ def do_apply(request):
     errors = []
     if request.user.is_authenticated():
         if request.method == 'POST':
+            if not request.POST.get('vm_type', ''):
+                errors.append('select vm_type')
             if not request.POST.get('os', ''):
                 errors.append('select os')
             if not request.POST.get('password', ''):
@@ -22,7 +25,8 @@ def do_apply(request):
                 try:
                     os = int(request.POST.get('os', ''))
                     memory = int(request.POST.get('memory', ''))
-                    new_application = Application(type=0, OS=os, pwd=password, Memory=memory,\
+                    vm_type = int(request.POST.get('vm_type', ''))
+                    new_application = Application(type=0, vm_type=vm_type, OS=os, pwd=password, Memory=memory,\
                                                   state=0, applicant=request.user, submissionTime=datetime.datetime.now())
                     new_application.save()
                 except Exception, e:
@@ -146,6 +150,7 @@ def get_my_applications(request):
                     {
                         "os": application.OS,
                         "memory": application.Memory,
+                        "vm_type": application.vm_type,
                         "hostname": application.HostName,
                         "username": application.UserName
                     },
@@ -188,6 +193,8 @@ def get_untreated_applications(request):
                     "submissionTime": application.submissionTime.strftime("%Y-%m-%d-%H"),
                     "treatment": "accept/refuse"
                 }
+                if application.vm:
+                    dic["parameter"]["uuid"] = application.vm.uuid
             except Exception, e:
                 print e
                 dic = {
@@ -209,6 +216,15 @@ def ratify_application(request):
         id = int(request.POST.get("id"))
         application = Application.objects.get(id=id)
         if application.state == 0:
+            host = None
+            vms = application.applicant.vm_user.filter(state__lt=4)
+            if len(vms) == 0:
+                hosts = VirtualMachine.objects.filter(uuid=None)
+                host = random.sample(hosts, 1)[0]
+                application.pvm=host
+            else:
+                host = vms[0].vmHost
+            application.pvm = host
             application.state = 1
             application.reviewer = request.user
             application.save()
@@ -309,7 +325,6 @@ def vmHost_reply(request):
                     vm.state = 0
                     application.state = 4
                     vm.save()
-                application.state = 5
             elif request.POST['request_type'] == 'shutdown':
                 vm = VirtualMachine.objects.get(uuid=vm_uuid)
                 if vm.state < 3:

@@ -15,22 +15,18 @@ class NotifyThread(threading.Thread):
         if not self.application:
             return "no application error"
         print "start.... %s" % (self.getName(),)
-        host = None
-        if self.application.type == 0:
-            hosts = VirtualMachine.objects.filter(uuid=None)
-            host = random.sample(hosts, 1)[0]
-            self.application.pvm=host
-        else:
-            host = self.application.pvm
+        host = self.application.pvm
         try:
             sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             print host.IPAddress
             sock.connect((host.IPAddress, host.port))
             types = ['new', 'delete', 'start', 'shutdown', 'savestate']
+            vm_types = ['normal', 'controller', 'storage']
             web_server_request = {"request_id": self.application.id, "request_type": types[self.application.type],
                                   "request_userid": self.application.applicant.id}
             if self.application.type == 0:  # create
                 web_server_request['request_pwd']= self.application.pwd
+                web_server_request['vm_type'] = vm_types[self.application.vm_type - 1]
             else:
                 web_server_request['vm_name'] = self.application.vm.hostname
                 web_server_request['vm_uuid'] = self.application.vm.uuid

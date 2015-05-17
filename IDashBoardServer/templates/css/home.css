@@ -12,6 +12,7 @@
 #main-data-table tbody {
 	cursor: pointer;
 }
+
 #host-data-table tbody {
 	cursor: pointer;
 }
@@ -21,4 +22,8 @@
 }
 #host-count-label label {
 	font-weight: normal;
+}
+
+.tablist {
+    margin-bottom: 20px;
 }

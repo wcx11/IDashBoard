@@ -10,25 +10,25 @@ import json
 
 def VMState(request):
     if 'uuid' in request.POST and request.POST['uuid']:
-        uuid = request.POST['uuid']
+        uuid = request.POST['uuid'].strip('\n')
         try:
             vm = VirtualMachine.objects.filter(uuid=uuid)
             if len(vm) == 0:
-                if 'IPAddress' in request.POST and request.POST['IPAddress']:
-                    ip = request.POST['IPAddress']
-                    try:
-                        vm = VirtualMachine.objects.filter(IPAddress=ip)
-                        if len(vm) == 0:
-                            return HttpResponse('error')
-                    except Exception, e:
-                        print e
-                        return HttpResponse('error')
-                else:
-                    return HttpResponse('error')
+                return HttpResponse('error')
         except Exception, e:
             print e
             return HttpResponse('error')
-
+    elif 'IPAddress' in request.POST and request.POST['IPAddress']:
+        ip = request.POST['IPAddress'].split('\n')[0]
+        try:
+            vm = VirtualMachine.objects.filter(IPAddress=ip)
+            if len(vm) == 0:
+                return HttpResponse('error')
+        except Exception, e:
+            print e
+            return HttpResponse('error')
+    else:
+        return HttpResponse('error')
     if 'stateInfo' in request.POST and request.POST['stateInfo']:
         stateInfo = request.POST['stateInfo']
         vm[0].stateInfo = stateInfo
@@ -50,19 +50,30 @@ def VMState(request):
 
 
 def helloServer(request):
-    if 'IPAddress' in request.POST and request.POST['IPAddress'] and 'Port' in request.POST and request.POST['Port']:
-        ip = request.POST['IPAddress']
+    if 'uuid' in request.POST and request.POST['uuid']:
+        uuid = request.POST['uuid'].strip('\n')
+        print datetime.datetime.now()
+        try:
+            vm = VirtualMachine.objects.filter(uuid=uuid)
+            if len(vm) != 0:
+                vm[0].lastConnectTime = datetime.datetime.now()
+                vm[0].save()
+            else:
+                return
+        except Exception, e:
+            print e
+    elif 'IPAddress' in request.POST and request.POST['IPAddress'] and 'Port' in request.POST and request.POST['Port']:
+        ip = request.POST['IPAddress'].split('\n')[0]
         port = request.POST['Port']
         print datetime.datetime.now()
         try:
-            vm = VirtualMachine.objects.filter(IPAddress= ip)
+            vm = VirtualMachine.objects.filter(IPAddress=ip)
             if len(vm) != 0:
                 vm[0].lastConnectTime = datetime.datetime.now()
                 vm[0].port = port
                 vm[0].save()
             else:
-                newVM = VirtualMachine(IPAddress=ip, port=port, lastConnectTime=datetime.datetime.now())
-                newVM.save()
+                return
         except Exception, e:
             print e
             return

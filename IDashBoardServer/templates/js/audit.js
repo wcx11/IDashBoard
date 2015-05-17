@@ -24,8 +24,14 @@ $(document).ready(function(){
             username = data.parameter.username;
             memory = data.parameter.memory;
             os = data.parameter.os;
-            var parameterhtml = '<div><strong>os:</strong>' + os + '<br/><strong>hostname:</strong>'
-                + hostname + '<br><strong>username:</strong>' + username + '<br><strong>memory:</strong>' +  memory + '</div>';
+            var parameterhtml = '';
+            if(data.type==0){
+                parameterhtml = '<div><strong>os:</strong>' + os + '<br/><strong>memory:</strong>' +  memory + '</div>';
+            }
+            else{
+                parameterhtml = '<div><strong>uuid:</strong>'+data.parameter.uuid +'</div>'
+            }
+
             var treatmenthtml = '<div><button class = "btn btn-success">ratify</button><button class="btn btn-danger">refuse</button></div>';
             $('td:eq(4)', row).html(treatmenthtml);
             $('td:eq(2)', row).html(parameterhtml);

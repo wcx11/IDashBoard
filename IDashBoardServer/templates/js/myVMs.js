@@ -40,19 +40,25 @@ $(document).ready(function(){
             if (myVMCount != 0) {
                 // 单击单元格跳转到详细信息
                 $('#myVMs-data-table tr').on('click', 'button.startVM', function () {
-                    json_obj = {'id': $(this).parentsUntil('tbody').last().attr('data-id')}
+                    var id = $(this).parentsUntil('tbody').last().attr('data-id');
+                    $(this).parentsUntil('tr').last().html("please wait...");
+                    json_obj = {'id': id}
                         $.post('/start_apply/', JSON.stringify(json_obj), function(data){
                         }
                     );
                 });
                 $('#myVMs-data-table tr').on('click', 'button.shutdownVM', function () {
-                    json_obj = {'id': $(this).parentsUntil('tbody').last().attr('data-id')}
+                    var id = $(this).parentsUntil('tbody').last().attr('data-id');
+                    $(this).parentsUntil('tr').last().html("please wait...");
+                    json_obj = {'id': id}
                         $.post('/stop_apply/', JSON.stringify(json_obj), function(data){
                         }
                     );
                 });
                 $('#myVMs-data-table tr').on('click', 'button.savestateVM', function () {
-                    json_obj = {'id': $(this).parentsUntil('tbody').last().attr('data-id')}
+                    var id = $(this).parentsUntil('tbody').last().attr('data-id');
+                    $(this).parentsUntil('tr').last().html("please wait...");
+                    json_obj = {'id': id}
                         $.post('/savestate_apply/', JSON.stringify(json_obj), function(data){
                         }
                     );
@@ -68,6 +74,7 @@ $(document).ready(function(){
 
 function confirmDelete(data_id){
     json_obj = {'id': $('#deleteModal').attr('data-id')}
+    $('#myVMs-data-table').find('tr[data-id='+$('#deleteModal').attr('data-id')+"]").find('td').last().html("please wait...");
     $.post('/delete_apply/', JSON.stringify(json_obj), function(data){
         }
     );

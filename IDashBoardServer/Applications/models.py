@@ -5,7 +5,8 @@ from VirtualMachines.models import VirtualMachine
 
 
 class Application(models.Model):
-    type = models.IntegerField()  # 0 = create, 1 = delete
+    type = models.IntegerField()  # 0 = create, 1 = delete, 2 = start, 3 = shutdown, 4 = savestate
+    vm_type = models.PositiveIntegerField(null=True)  # 1 = single, 2 = controller, 3 = storage
     OS = models.IntegerField(null=True)
     HostName = models.TextField(null=True)
     UserName = models.TextField(null=True)

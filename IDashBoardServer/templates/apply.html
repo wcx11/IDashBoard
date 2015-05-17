@@ -48,8 +48,18 @@
                         </div>
                     </div>
 
-                    <button type="submit" class="col-sm-4 btn btn-primary pull-right">Apply</button>
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">OS type</label>
+                        <div class="col-sm-8">
+                            <select class="form-control" name="vm_type">
+                                <option value="1">Normal VM</option>
+                                <option value="2">OpenStack controller</option>
+                                <option value="3">OpenStack storage</option>
+                            </select>
+                        </div>
+                    </div>
 
+                    <button type="submit" class="col-sm-4 btn btn-primary pull-right">Apply</button>
                 </form>
             </div>
             <div class="col-sm-5">

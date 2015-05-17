@@ -31,7 +31,9 @@ def connectServer():
     while(True):
         state = 1
         myip = executeCMD('inet4')
+        print(myip)
         uuid = executeCMD('uuid')
+        print(uuid)
         params = urllib.urlencode({'IPAddress': myip, 'Port': 23333, 'uuid': uuid})
         response = sendCommandResult(api="/helloServer/", params=params)
         if response and response.status == 200:

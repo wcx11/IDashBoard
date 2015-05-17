@@ -8,6 +8,7 @@ class VirtualMachine(models.Model):
     vmHost = models.ForeignKey('self', related_name='vm_host', null=True)
     IPAddress = models.TextField(null=True)
     port = models.PositiveIntegerField(null=True)
+    type = models.PositiveIntegerField(null=True)
     state = models.IntegerField(null=True)  # 0 = online, 1 = offline, 2 = savestate, 3 = deleted
     lastConnectTime = models.DateTimeField(auto_now=True, auto_now_add=False)
     # when the client connect the server for the last time
