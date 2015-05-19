@@ -25,7 +25,7 @@ $(document).ready(function(){
             memory = data.parameter.memory;
             os = data.parameter.os;
             var parameterhtml = '';
-            if(data.type==0){
+            if(data.type=="new"){
                 parameterhtml = '<div><strong>os:</strong>' + os + '<br/><strong>memory:</strong>' +  memory + '</div>';
             }
             else{

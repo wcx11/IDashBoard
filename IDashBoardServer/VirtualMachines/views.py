@@ -31,6 +31,7 @@ def VMState(request):
         return HttpResponse('error')
     if 'stateInfo' in request.POST and request.POST['stateInfo']:
         stateInfo = request.POST['stateInfo']
+        vm[0].IPAddress = request.POST['IPAddress'].split('\n')[0]
         vm[0].stateInfo = stateInfo
         vm[0].lastConnectTime = datetime.datetime.now()
         info = eval(request.POST['stateInfo'])

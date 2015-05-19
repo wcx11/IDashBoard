@@ -7,7 +7,7 @@ from DashBoardUser.models import DashBoardUser
 from django.contrib import auth
 from django.contrib.auth.models import User, Group
 from django.db.models import Q
-
+import pytz
 # Create your views here.
 
 
@@ -153,7 +153,7 @@ def getAllActiveVMsSimpleHost():
                 'os': vm.osInfo,
                 'UserName': vm.username,
                 'HostName': vm.hostname,
-                'Memory': str(100 - int(float(vm.mem.split()[1]) / float(vm.mem.split()[0]) * 100 + 0.5)) + '%',
+                'Memory': str(int(float(vm.mem.split()[1]) / float(vm.mem.split()[0]) * 100 + 0.5)) + '%',
                 'CPU': str(int(100 - float(vm.percentCPU.split()[3]) + 0.5)) + '%',
                 'id': vm.id
             }
@@ -169,9 +169,10 @@ def getAllActiveVMsSimpleHost():
                 'id': vm.id
             }
         finally:
+            if vm.lastConnectTime < pytz.utc.localize(t):
+                dic['ip'] = "offline"
             ActiveVMs.append(dic)
     return ActiveVMs
-
 
 
 def getAllActiveVMsSimple():
@@ -187,7 +188,7 @@ def getAllActiveVMsSimple():
                 'os': vm.osInfo,
                 'UserName': vm.username,
                 'HostName': vm.hostname,
-                'Memory': str(100 - int(float(vm.mem.split()[1]) / float(vm.mem.split()[0]) * 100 + 0.5)) + '%',
+                'Memory': str(int(float(vm.mem.split()[1]) / float(vm.mem.split()[0]) * 100 + 0.5)) + '%',
                 'CPU': str(int(100 - float(vm.percentCPU.split()[3]) + 0.5)) + '%',
                 'id': vm.id
             }
@@ -203,6 +204,8 @@ def getAllActiveVMsSimple():
                 'id': vm.id
             }
         finally:
+            if vm.lastConnectTime < pytz.utc.localize(t):
+                dic['ip'] = "offline"
             ActiveVMs.append(dic)
     return ActiveVMs
 
@@ -217,6 +220,7 @@ def getAllActiveVMs():
         ActiveVMs.append(dic)
     return ActiveVMs
 
+
 def apply(request):
     if request.user.is_authenticated():
         t = Group.objects.filter(name='teachers')[0]
@@ -224,6 +228,7 @@ def apply(request):
         return render_to_response('apply.html', locals())
     else:
         return render_to_response('index.html', locals())
+
 
 def audit(request):
     if request.user.is_authenticated():

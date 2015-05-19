@@ -17,9 +17,9 @@ def saveUserInfo(request):
                     profile.save()
 
                 if request.POST.get('username',''):
-                    u.username = request.POST.get('username','')
+                    u[0].username = request.POST.get('username','')
                 if request.POST.get('email',''):
-                    u.username = request.POST.get('email','')
+                    u[0].email = request.POST.get('email','')
                 if request.POST.get('phone',''):
                     profile.phone = request.POST.get('phone','')
                 if request.POST.get('department',''):

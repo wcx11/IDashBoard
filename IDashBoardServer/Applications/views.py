@@ -177,16 +177,19 @@ def get_untreated_applications(request):
     if request.user.is_authenticated():
         applications = Application.objects.filter(state=0)
         untreated_applications = []
+        typeset = ["new", "delete", "start", "shutdown", "savestate"]
+        osset = ["Ubuntu 14.04 LTS",""]
+        memoryset = ["1024M", "2048M"]
         for application in applications:
             try:
                 dic = {
                     "id": application.id,
-                    "type": application.type,
+                    "type": typeset[application.type],
                     "applicant": application.applicant.username,
                     "parameter":
                     {
-                        "os": application.OS,
-                        "memory": application.Memory,
+                        "os": osset[application.OS - 1],
+                        "memory": memoryset[application.Memory - 1],
                         "hostname": application.HostName,
                         "username": application.UserName
                     },
