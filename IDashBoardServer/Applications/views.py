@@ -201,8 +201,19 @@ def get_untreated_applications(request):
             except Exception, e:
                 print e
                 dic = {
-
+                    "id": application.id,
+                    "type": typeset[application.type],
+                    "applicant": application.applicant.username,
+                    "parameter":
+                    {
+                        "hostname": application.HostName,
+                        "username": application.UserName
+                    },
+                    "submissionTime": application.submissionTime.strftime("%Y-%m-%d-%H"),
+                    "treatment": "accept/refuse"
                 }
+                if application.vm:
+                    dic["parameter"]["uuid"] = application.vm.uuid
             finally:
                 untreated_applications.append(dic)
         response={'data': untreated_applications}
@@ -340,6 +351,7 @@ def vmHost_reply(request):
                 vm = VirtualMachine.objects.get(uuid=vm_uuid)
                 if vm.state < 3:
                     vm.state = 2
+                    application.state = 4;
                     vm.save()
                 else:
                     application.state = 5
@@ -347,6 +359,7 @@ def vmHost_reply(request):
                 vm = VirtualMachine.objects.get(uuid=vm_uuid)
                 if vm.state < 3:
                     vm.state = 3
+                    application.state = 4;
                     vm.save()
                 else:
                     application.state = 5
